@@ -1,0 +1,36 @@
+import { FC } from 'react';
+import { Button } from 'react-bootstrap';
+import { BsFillPencilFill } from 'react-icons/bs';
+
+import { useNodes } from '../../contexts/NodesContext';
+
+interface Props {
+  nodeId: string;
+
+  name: string;
+  sideLength: number;
+}
+
+const SquareEditPad: FC<Props> = ({ nodeId, name, sideLength }) => {
+  const { putNode } = useNodes();
+
+  const handleEditNode = () => {
+    const updatedNode = putNode(nodeId, {
+      name: name,
+      object: {
+        width: sideLength,
+        height: sideLength,
+      },
+    });
+
+    updatedNode.object.render();
+  };
+
+  return (
+    <Button onClick={handleEditNode}>
+      <BsFillPencilFill />
+    </Button>
+  );
+};
+
+export default SquareEditPad;

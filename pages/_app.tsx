@@ -1,8 +1,18 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
+
+import { NodesProvider } from '../contexts/NodesContext';
+import { CubedProvider } from '../contexts/CubedContext';
+
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <CubedProvider>
+      <NodesProvider>
+        <Component {...pageProps} />
+      </NodesProvider>
+    </CubedProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
