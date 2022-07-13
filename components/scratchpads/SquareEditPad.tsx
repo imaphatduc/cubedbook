@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { Button } from 'react-bootstrap';
 import { BsFillPencilFill } from 'react-icons/bs';
 
+import { SHAPE_CONFIG } from 'cubecubed';
+
 import { useNodes } from '../../contexts/NodesContext';
 
 interface Props {
@@ -9,9 +11,10 @@ interface Props {
 
   name: string;
   sideLength: number;
+  CONFIG: SHAPE_CONFIG;
 }
 
-const SquareEditPad: FC<Props> = ({ nodeId, name, sideLength }) => {
+const SquareEditPad: FC<Props> = ({ nodeId, name, sideLength, CONFIG }) => {
   const { putNode } = useNodes();
 
   const handleEditNode = () => {
@@ -20,6 +23,7 @@ const SquareEditPad: FC<Props> = ({ nodeId, name, sideLength }) => {
       object: {
         width: sideLength,
         height: sideLength,
+        CONFIG: CONFIG,
       },
     });
 
