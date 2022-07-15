@@ -7,6 +7,8 @@ import { SHAPE_CONFIG } from 'cubecubed';
 import { useCubed } from '../../contexts/CubedContext';
 import { useNodes } from '../../contexts/NodesContext';
 
+import SquarePad from './SquarePad';
+
 interface Props {
   name: string;
   sideLength: number;
@@ -35,6 +37,7 @@ const SquareRenderPad: FC<Props> = ({
         sideLength: sideLength,
         CONFIG: CONFIG,
       }).render(),
+      pad: <SquarePad nodeId={id} setCurrentPad={setCurrentPad} />,
     };
 
     addNode(newNode);

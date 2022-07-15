@@ -14,21 +14,7 @@ const TocSection: FC<Props> = ({ setCurrentPad }) => {
   const { nodes } = useNodes();
 
   const handleOpenScratchpad = (node: CubedNode) => {
-    switch (node.object.constructor.name) {
-      case 'Square':
-        setCurrentPad(
-          <SquarePad nodeId={node.id} setCurrentPad={setCurrentPad} />
-        );
-
-        break;
-
-      case 'Create':
-        setCurrentPad(
-          <CreatePad nodeId={node.id} setCurrentPad={setCurrentPad} />
-        );
-
-        break;
-    }
+    setCurrentPad(node.pad);
   };
 
   return (

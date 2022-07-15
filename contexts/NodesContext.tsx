@@ -6,12 +6,11 @@ import {
   useState,
 } from 'react';
 
-import { Animation, TYPES } from 'cubecubed';
-
 export interface CubedNode {
   id: string;
   name: string;
-  object: TYPES | Animation;
+  object: any;
+  pad: JSX.Element;
 }
 
 type PutNode = (nodeId: string, newData: any) => CubedNode;

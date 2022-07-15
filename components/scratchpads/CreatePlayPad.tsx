@@ -5,6 +5,8 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { useCubed } from '../../contexts/CubedContext';
 import { useNodes } from '../../contexts/NodesContext';
 
+import CreatePad from './CreatePad';
+
 interface Props {
   cubiconNodeId: string;
   duration: number;
@@ -32,6 +34,7 @@ const CreatePlayPad: FC<Props> = ({
         cubicon: cubicon,
         duration: duration,
       }),
+      pad: <CreatePad nodeId={id} setCurrentPad={setCurrentPad} />,
     };
 
     group!.play([newNode.object]);
