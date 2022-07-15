@@ -2,8 +2,6 @@ import { FC } from 'react';
 
 import { CubedNode, useNodes } from '../../contexts/NodesContext';
 
-import CreatePad from '../scratchpads/CreatePad';
-import SquarePad from '../scratchpads/SquarePad';
 import TocHeading from '../TocHeading';
 
 interface Props {
