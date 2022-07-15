@@ -9,6 +9,7 @@ import {
 export interface CubedNode {
   id: string;
   name: string;
+  type: string;
   object: any;
   pad: JSX.Element;
 }

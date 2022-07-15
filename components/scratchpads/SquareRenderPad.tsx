@@ -32,6 +32,7 @@ const SquareRenderPad: FC<Props> = ({
     const newNode = {
       id: id,
       name: name,
+      type: 'Square',
       object: new cubed!.Square({
         group: group!,
         sideLength: sideLength,

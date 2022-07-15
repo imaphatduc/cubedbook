@@ -34,7 +34,7 @@ const TocHeading: FC<Props> = ({ node, handler }) => {
       onClick={() => handler(node)}
       style={{ opacity }}
     >
-      {node.name}: {node.object.constructor.name}
+      {node.name}: {node.type}
     </Button>
   );
 };

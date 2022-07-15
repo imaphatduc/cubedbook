@@ -30,6 +30,7 @@ const CreatePlayPad: FC<Props> = ({
     const newNode = {
       id: id,
       name: 'anim-create',
+      type: 'Create',
       object: new cubed!.Create({
         cubicon: cubicon,
         duration: duration,
