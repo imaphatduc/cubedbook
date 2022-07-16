@@ -1,5 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react';
 
+import { SHAPE_CONFIG } from 'cubecubed';
+
 import InputField from '../fields/InputField';
 import Scratchpad from '../Scratchpad';
 import SquareEditPad from './SquareEditPad';
@@ -26,7 +28,9 @@ const SquarePad: FC<Props> = ({ nodeId, setCurrentPad }) => {
     currentNode?.object.width ?? 0
   );
 
-  const [CONFIG, setCONFIG] = useState(cubed!.SHAPE_DEFAULT_CONFIG);
+  const [CONFIG, setCONFIG] = useState<SHAPE_CONFIG>(
+    currentNode?.object.CONFIG ?? cubed!.SHAPE_DEFAULT_CONFIG
+  );
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -46,7 +50,7 @@ const SquarePad: FC<Props> = ({ nodeId, setCurrentPad }) => {
   };
 
   const handleFillOpacityInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const fillOpacityInputValue = parseInt(e.target.value);
+    const fillOpacityInputValue = parseFloat(e.target.value);
 
     setCONFIG({
       ...CONFIG,
@@ -94,28 +98,31 @@ const SquarePad: FC<Props> = ({ nodeId, setCurrentPad }) => {
 
       <InputField
         label="sideLength"
-        value={sideLength ? sideLength : ''}
+        type={'number'}
+        value={sideLength}
         handler={handleSideLengthInputChange}
       />
 
       <InputField
         label="fillColor"
-        value={CONFIG.fillColor ?? cubed!.SHAPE_DEFAULT_CONFIG.fillColor}
+        value={CONFIG.fillColor}
         handler={handleFillColorInputChange}
       />
       <InputField
         label="fillOpacity"
-        value={CONFIG.fillOpacity ?? cubed!.SHAPE_DEFAULT_CONFIG.fillOpacity}
+        type={'number'}
+        value={CONFIG.fillOpacity}
         handler={handleFillOpacityInputChange}
       />
       <InputField
         label="strokeColor"
-        value={CONFIG.strokeColor ?? cubed!.SHAPE_DEFAULT_CONFIG.strokeColor}
+        value={CONFIG.strokeColor}
         handler={handleStrokeColorInputChange}
       />
       <InputField
         label="strokeWidth"
-        value={CONFIG.strokeWidth ?? cubed!.SHAPE_DEFAULT_CONFIG.strokeWidth}
+        type={'number'}
+        value={CONFIG.strokeWidth}
         handler={handleStrokeWidthInputChange}
       />
     </Scratchpad>
