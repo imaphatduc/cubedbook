@@ -6,7 +6,7 @@ import Scratchpad from '../Scratchpad';
 import CreateEditPad from './CreateEditPad';
 import CreatePlayPad from './CreatePlayPad';
 
-import { useNodes } from '../../contexts/NodesContext';
+import { AnimationNode, useNodes } from '../../contexts/NodesContext';
 import { useCubed } from '../../contexts/CubedContext';
 
 interface Props {
@@ -19,9 +19,13 @@ const CreatePad: FC<Props> = ({ nodeId, setCurrentPad }) => {
   const { cubed } = useCubed();
   const { nodes } = useNodes();
 
-  const currentNode = nodes.filter((node) => node.id === nodeId)[0];
+  const currentNode = nodes.filter(
+    (node) => node.id === nodeId
+  )[0] as AnimationNode;
 
-  const [cubiconNodeId, setCubiconNodeId] = useState('');
+  const [cubiconNodeId, setCubiconNodeId] = useState(
+    currentNode?.cubiconNodeId ?? ''
+  );
 
   const [duration, setDuration] = useState(
     currentNode?.object.duration ?? cubed!.ANIME.CREATE
@@ -47,7 +51,11 @@ const CreatePad: FC<Props> = ({ nodeId, setCurrentPad }) => {
         />
       )}
 
-      <DropField label="cubicon" setCubiconNodeId={setCubiconNodeId} />
+      <DropField
+        label="cubicon"
+        cubiconNodeId={cubiconNodeId}
+        setCubiconNodeId={setCubiconNodeId}
+      />
 
       <InputField
         label="duration"

@@ -4,13 +4,16 @@ import { useDrop } from 'react-dnd';
 import { CubedNode, useNodes } from '../contexts/NodesContext';
 
 interface InputProps {
+  cubiconNodeId: string;
   setCubiconNodeId: (id: string) => void;
 }
 
-const DropInput: FC<InputProps> = ({ setCubiconNodeId }) => {
-  const [cubiconName, setCubiconName] = useState('');
-
+const DropInput: FC<InputProps> = ({ cubiconNodeId, setCubiconNodeId }) => {
   const { nodes } = useNodes();
+
+  const cubiconNode = nodes.filter((node) => node.id === cubiconNodeId)[0];
+
+  const [cubiconName, setCubiconName] = useState(cubiconNode?.name ?? '');
 
   const nodesId = nodes.map((node) => node.id);
 
