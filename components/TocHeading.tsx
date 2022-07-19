@@ -29,7 +29,7 @@ const TocHeading: FC<Props> = ({ node, handler }) => {
     <Button
       ref={drag}
       className={`w-100 mb-2 ${
-        node.object.cubiconType ? 'btn-cubicon' : 'btn-animation'
+        node.signature === 'Cubicon' ? 'btn-cubicon' : 'btn-animation'
       }`}
       onClick={() => handler(node)}
       style={{ opacity }}

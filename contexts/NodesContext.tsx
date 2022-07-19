@@ -6,13 +6,25 @@ import {
   useState,
 } from 'react';
 
-export interface CubedNode {
+interface BaseNode {
+  signature: 'Cubicon' | 'Animation';
   id: string;
   name: string;
   type: string;
   object: any;
   pad: JSX.Element;
 }
+
+export interface CubiconNode extends BaseNode {
+  signature: 'Cubicon';
+}
+
+export interface AnimationNode extends BaseNode {
+  signature: 'Animation';
+  cubiconNodeId: string;
+}
+
+export type CubedNode = CubiconNode | AnimationNode;
 
 type PutNode = (nodeId: string, newData: any) => CubedNode;
 

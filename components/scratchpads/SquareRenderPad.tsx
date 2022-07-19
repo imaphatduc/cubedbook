@@ -5,7 +5,7 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { SHAPE_CONFIG } from 'cubecubed';
 
 import { useCubed } from '../../contexts/CubedContext';
-import { useNodes } from '../../contexts/NodesContext';
+import { CubiconNode, useNodes } from '../../contexts/NodesContext';
 
 import SquarePad from './SquarePad';
 
@@ -29,7 +29,8 @@ const SquareRenderPad: FC<Props> = ({
   const { addNode } = useNodes();
 
   const handleCreateNode = () => {
-    const newNode = {
+    const newNode: CubiconNode = {
+      signature: 'Cubicon',
       id: id,
       name: name,
       type: 'Square',

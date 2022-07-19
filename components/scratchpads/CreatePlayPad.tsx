@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { BsFillPlayFill } from 'react-icons/bs';
 
 import { useCubed } from '../../contexts/CubedContext';
-import { useNodes } from '../../contexts/NodesContext';
+import { AnimationNode, useNodes } from '../../contexts/NodesContext';
 
 import CreatePad from './CreatePad';
 
@@ -27,8 +27,10 @@ const CreatePlayPad: FC<Props> = ({
   const handleCreateNode = () => {
     const cubicon = nodes.filter((node) => node.id === cubiconNodeId)[0].object;
 
-    const newNode = {
+    const newNode: AnimationNode = {
+      signature: 'Animation',
       id: id,
+      cubiconNodeId: cubiconNodeId,
       name: 'anim-create',
       type: 'Create',
       object: new cubed!.Create({
