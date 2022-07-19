@@ -11,6 +11,7 @@ const InputField: FC<Props> = ({ label, type, value, handler }) => {
   return (
     <div className="d-flex justify-content-between my-3">
       <p>{label}</p>
+
       <input
         type={type}
         value={value}
