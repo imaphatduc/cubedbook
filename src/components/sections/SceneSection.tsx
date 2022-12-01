@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const SceneSection = ({ currentPad, setCurrentPad }: Props) => {
-  const { groupNodes, addGroup } = useCubed();
+  const { groupNodes, addGroupNode } = useCubed();
 
   return (
     <div>
@@ -30,7 +30,7 @@ export const SceneSection = ({ currentPad, setCurrentPad }: Props) => {
         >
           <CtxMenuItem
             label="2D Group"
-            onClick={() => addGroup('hello-group', '2d')}
+            onClick={() => addGroupNode('hello-group', '2d')}
           />
           <CtxMenuItem label="3D Group" />
         </PressMenu>

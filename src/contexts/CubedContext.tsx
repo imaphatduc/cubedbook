@@ -28,8 +28,8 @@ export interface IGroupNode {
 interface ContextValue {
   scene: Scene;
   groupNodes: IGroupNode[];
-  addGroup: (name: string, type: '2d' | '3d') => void;
-  addCubicon: (
+  addGroupNode: (name: string, type: '2d' | '3d') => void;
+  addCubiconNode: (
     groupNodeId: string,
     name: string,
     cubicon: Cubicon,
@@ -46,7 +46,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const [groupNodes, setGroupNodes] = useState<IGroupNode[]>([]);
 
-  const addGroup = (name: string, type: '2d' | '3d') => {
+  const addGroupNode = (name: string, type: '2d' | '3d') => {
     if (type === '2d') {
       const groupNode: IGroupNode = {
         id: uuid(),
@@ -59,7 +59,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  const addCubicon = (
+  const addCubiconNode = (
     groupNodeId: string,
     name: string,
     cubicon: Cubicon,
@@ -84,7 +84,9 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <CubedContext.Provider value={{ scene, groupNodes, addGroup, addCubicon }}>
+    <CubedContext.Provider
+      value={{ scene, groupNodes, addGroupNode, addCubiconNode }}
+    >
       {children}
     </CubedContext.Provider>
   );

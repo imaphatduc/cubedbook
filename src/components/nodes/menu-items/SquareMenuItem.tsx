@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const SquareMenuItem = ({ groupNode }: Props) => {
-  const { addCubicon } = useCubed();
+  const { addCubiconNode } = useCubed();
 
   const label = 'Square';
 
@@ -29,7 +29,7 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
           ).length
         }`;
 
-        addCubicon(
+        addCubiconNode(
           groupNode.id,
           name,
           square,
