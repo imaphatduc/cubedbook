@@ -31,7 +31,7 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
             ).length
           }`,
           square,
-          SquarePad
+          <SquarePad />
         );
       }}
     />
