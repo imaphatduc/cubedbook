@@ -32,10 +32,28 @@ export const CtxMenu = ({ menuProps, toggleMenu, anchorPoint }: Props) => {
         <CtxMenuItem label="Square" />
         <CtxMenuItem label="Circle" />
         <CtxMenuItem label="Line" />
-        <CtxMenuItem label="VectorShape" />
+        <CtxMenuItem label="Vector Shape" />
+        <CtxMenuItem label="Parametric Curve" />
       </CtxSubMenu>
-      <CtxMenuItem label="Coordinates System" />
-      <CtxMenuItem label="Paste" />
+      <CtxSubMenu label="Coordinates System">
+        <CtxMenuItem label="Axes" />
+      </CtxSubMenu>
+      <CtxSubMenu label="Animations">
+        <CtxMenuItem label="Create Shape" />
+        <CtxMenuItem label="Create Vector Shape" />
+        <CtxMenuItem label="Translate" />
+        <CtxMenuItem label="Rotate" />
+        <CtxMenuItem label="Fade In" />
+        <CtxMenuItem label="Fade Out" />
+        <CtxMenuItem label="Draw Grid" />
+        <CtxMenuItem label="Draw Axes" />
+        <CtxMenuItem label="Draw Vector Field" />
+        <CtxMenuItem label="Point To Coordinates" />
+        <CtxMenuItem label="Point Along Graph" />
+        <CtxMenuItem label="Write" />
+        <CtxMenuItem label="Trace" />
+        <CtxMenuItem label="Apply Function" />
+      </CtxSubMenu>
     </ControlledMenu>
   );
 };
