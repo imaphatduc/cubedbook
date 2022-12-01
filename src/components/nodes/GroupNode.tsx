@@ -1,10 +1,11 @@
 import { MenuButton } from '@szhsin/react-menu';
 import { Plus } from 'phosphor-react';
 
-import { IGroupNode, useCubed } from '../../contexts/CubedContext';
+import { IGroupNode } from '../../contexts/CubedContext';
 import { CtxMenuItem } from '../menu/CtxMenuItem';
 import { CtxSubMenu } from '../menu/CtxSubMenu';
 import { PressMenu } from '../menu/PressMenu';
+import { CubiconNode } from './CubiconNode';
 
 import { SquareMenuItem } from './menu-items/SquareMenuItem';
 
@@ -13,8 +14,6 @@ interface Props {
 }
 
 export const GroupNode = ({ groupNode }: Props) => {
-  const { addCubicon } = useCubed();
-
   return (
     <div>
       <div className="flex items-center">
@@ -62,8 +61,8 @@ export const GroupNode = ({ groupNode }: Props) => {
       </div>
 
       <div className="ml-8">
-        {groupNode.cubiconNodes.map((node) => (
-          <p key={node.id}>{node.name}</p>
+        {groupNode.cubiconNodes.map((cubiconNode) => (
+          <CubiconNode key={cubiconNode.id} cubiconNode={cubiconNode} />
         ))}
       </div>
     </div>
