@@ -15,7 +15,6 @@ export interface ICubiconNode {
 
 export interface IGroupNode {
   type?: '2d';
-  name: string;
   group: Group;
   cubiconNodes: ICubiconNode[];
 }
@@ -39,7 +38,6 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     if (type === '2d') {
       const groupNode: IGroupNode = {
         type,
-        name,
         group: new Group(name, scene),
         cubiconNodes: [],
       };
