@@ -18,7 +18,7 @@ interface Props {
 
 export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
   return (
-    <div>
+    <div className="mb-3">
       <div className="flex items-center">
         <p className="m-0 ml-3">{groupNode.group.name}</p>
 
