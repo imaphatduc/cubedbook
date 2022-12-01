@@ -17,7 +17,6 @@ export const SquarePad = ({ name, square }: Props) => {
     CONFIG: { fillColor, fillOpacity, strokeColor, strokeWidth },
   } = square;
 
-  const nameRef = useRef<HTMLInputElement>();
   const sideLengthRef = useRef<HTMLInputElement>();
   const fillColorRef = useRef<HTMLInputElement>();
   const fillOpacityRef = useRef<HTMLInputElement>();
@@ -39,13 +38,11 @@ export const SquarePad = ({ name, square }: Props) => {
   };
 
   return (
-    <PadLayout onPadSubmit={render}>
-      <PadOption label="name">
-        <InputField defaultValue={name} ref={nameRef} />
-      </PadOption>
+    <PadLayout name={name} onPadSubmit={render}>
       <PadOption label="side_length">
         <InputField defaultValue={sideLength} ref={sideLengthRef} />
       </PadOption>
+      <hr className="border-white opacity-10 pb-2" />
       <PadOption label="fill_color">
         <InputField defaultValue={fillColor} ref={fillColorRef} />
       </PadOption>
