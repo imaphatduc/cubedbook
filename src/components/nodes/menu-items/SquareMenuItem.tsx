@@ -23,15 +23,17 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
           sideLength: 2,
         }).render();
 
+        const name = `${label.toLowerCase()}_${
+          groupNode.cubiconNodes.filter(
+            (node) => node.name.split('_')[0] === label.toLowerCase()
+          ).length
+        }`;
+
         addCubicon(
           groupNode.id,
-          `${label.toLowerCase()}_${
-            groupNode.cubiconNodes.filter(
-              (node) => node.name.split('_')[0] === label.toLowerCase()
-            ).length
-          }`,
+          name,
           square,
-          <SquarePad />
+          <SquarePad name={name} square={square} />
         );
       }}
     />
