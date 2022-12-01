@@ -16,7 +16,7 @@ export const CtxSubMenu = (props: SubMenuProps) => {
           </>
         </div>
       }
-      offsetY={-7}
+      offsetY={-10}
       className="relative"
       menuClassName={menuClassName}
       itemProps={{ className: menuItemClassName }}
