@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import { MenuButton } from '@szhsin/react-menu';
-import { Square } from 'cubecubed';
 import { Plus } from 'phosphor-react';
 
 import { IGroupNode, useCubed } from '../../contexts/CubedContext';
 import { CtxMenuItem } from '../menu/CtxMenuItem';
 import { CtxSubMenu } from '../menu/CtxSubMenu';
 import { PressMenu } from '../menu/PressMenu';
+
+import { SquareMenuItem } from './menu-items/SquareMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
@@ -31,17 +31,9 @@ export const GroupNode = ({ groupNode }: Props) => {
         >
           <CtxSubMenu label="Geometry">
             <CtxMenuItem label="Rectangle" />
-            <CtxMenuItem
-              label="Square"
-              onClick={() => {
-                const square = new Square({
-                  group: groupNode.group,
-                  sideLength: 2,
-                }).render();
 
-                const cubiconNode = addCubicon(groupNode.id, 'Square', square);
-              }}
-            />
+            <SquareMenuItem groupNode={groupNode} />
+
             <CtxMenuItem label="Circle" />
             <CtxMenuItem label="Line" />
             <CtxMenuItem label="Vector Shape" />
