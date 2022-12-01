@@ -6,7 +6,7 @@ interface MenuItemClassName {
 }
 
 export const menuItemClassName = ({ hover, disabled }: MenuItemClassName) =>
-  `px-3 py-1 focus:outline-none ${hover && 'text-white bg-cubedpurple'} ${
+  `px-3 py-1 focus:outline-none ${hover && 'text-white bg-cubedblue'} ${
     disabled && 'text-gray-400'
   }`;
 
