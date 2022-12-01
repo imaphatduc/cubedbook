@@ -3,11 +3,7 @@ interface Props {
 }
 
 const SectionHeader = ({ header }: Props) => {
-  return (
-    <h3 className="text-center my-3 font-medium underline underline-offset-4">
-      {header}
-    </h3>
-  );
+  return <h4 className="text-blue-400 my-3 font-medium">{header}</h4>;
 };
 
 export default SectionHeader;
