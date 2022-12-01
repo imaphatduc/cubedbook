@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { MenuButton } from '@szhsin/react-menu';
 import { Plus } from 'phosphor-react';
 
@@ -11,9 +12,11 @@ import { SquareMenuItem } from './menu-items/SquareMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
+  currentPad: ReactNode;
+  setCurrentPad: (currentPad: ReactNode) => void;
 }
 
-export const GroupNode = ({ groupNode }: Props) => {
+export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
   return (
     <div>
       <div className="flex items-center">
@@ -62,7 +65,9 @@ export const GroupNode = ({ groupNode }: Props) => {
 
       <div className="ml-8">
         {groupNode.cubiconNodes.map((cubiconNode) => (
-          <CubiconNode key={cubiconNode.id} cubiconNode={cubiconNode} />
+          <div onClick={() => setCurrentPad(cubiconNode.pad)}>
+            <CubiconNode key={cubiconNode.id} cubiconNode={cubiconNode} />
+          </div>
         ))}
       </div>
     </div>

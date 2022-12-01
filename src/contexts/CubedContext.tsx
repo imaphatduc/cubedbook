@@ -2,6 +2,7 @@ import {
   createContext,
   FC,
   PropsWithChildren,
+  ReactNode,
   useContext,
   useState,
 } from 'react';
@@ -14,6 +15,7 @@ export interface ICubiconNode {
   id: string;
   name: string;
   cubicon: Cubicon;
+  pad: ReactNode;
 }
 
 export interface IGroupNode {
@@ -27,7 +29,12 @@ interface ContextValue {
   scene: Scene;
   groupNodes: IGroupNode[];
   addGroup: (name: string, type: '2d' | '3d') => void;
-  addCubicon: (groupNodeId: string, name: string, cubicon: Cubicon) => void;
+  addCubicon: (
+    groupNodeId: string,
+    name: string,
+    cubicon: Cubicon,
+    pad: ReactNode
+  ) => void;
 }
 
 const CubedContext = createContext<ContextValue>(null);
@@ -52,11 +59,17 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  const addCubicon = (groupNodeId: string, name: string, cubicon: Cubicon) => {
+  const addCubicon = (
+    groupNodeId: string,
+    name: string,
+    cubicon: Cubicon,
+    pad: ReactNode
+  ) => {
     const cubiconNode = {
       id: uuid(),
       name,
       cubicon,
+      pad,
     };
 
     setGroupNodes(

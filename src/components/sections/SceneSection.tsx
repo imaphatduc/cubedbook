@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { MenuButton } from '@szhsin/react-menu';
 import { Plus } from 'phosphor-react';
 
@@ -7,7 +8,12 @@ import { PressMenu } from '../menu/PressMenu';
 import { GroupNode } from '../nodes/GroupNode';
 import SectionHeader from './components/SectionHeader';
 
-export const SceneSection = () => {
+interface Props {
+  currentPad: ReactNode;
+  setCurrentPad: (currentPad: ReactNode) => void;
+}
+
+export const SceneSection = ({ currentPad, setCurrentPad }: Props) => {
   const { groupNodes, addGroup } = useCubed();
 
   return (
@@ -31,7 +37,12 @@ export const SceneSection = () => {
       </div>
 
       {groupNodes.map((groupNode, i) => (
-        <GroupNode key={i} groupNode={groupNode} />
+        <GroupNode
+          key={i}
+          groupNode={groupNode}
+          currentPad={currentPad}
+          setCurrentPad={setCurrentPad}
+        />
       ))}
     </div>
   );

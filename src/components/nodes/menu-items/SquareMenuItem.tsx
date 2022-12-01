@@ -3,6 +3,7 @@ import { Square } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
+import { SquarePad } from '../../pads/SquarePad';
 
 interface Props {
   groupNode: IGroupNode;
@@ -29,7 +30,8 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
               (node) => node.name.split('_')[0] === label.toLowerCase()
             ).length
           }`,
-          square
+          square,
+          SquarePad
         );
       }}
     />

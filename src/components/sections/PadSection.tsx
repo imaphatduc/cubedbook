@@ -1,9 +1,18 @@
+import { ReactNode } from 'react';
+
 import SectionHeader from './components/SectionHeader';
 
-export const PadSection = () => {
+interface Props {
+  currentPad: ReactNode;
+  setCurrentPad: (currentPad: ReactNode) => void;
+}
+
+export const PadSection = ({ currentPad, setCurrentPad }: Props) => {
   return (
     <div>
       <SectionHeader header="Editor" />
+
+      {currentPad}
     </div>
   );
 };
