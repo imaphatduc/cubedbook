@@ -65,8 +65,11 @@ export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
 
       <div className="ml-8">
         {groupNode.cubiconNodes.map((cubiconNode) => (
-          <div onClick={() => setCurrentPad(cubiconNode.pad)}>
-            <CubiconNode key={cubiconNode.id} cubiconNode={cubiconNode} />
+          <div
+            key={cubiconNode.id}
+            onClick={() => setCurrentPad(cubiconNode.pad)}
+          >
+            <CubiconNode cubiconNode={cubiconNode} />
           </div>
         ))}
       </div>
