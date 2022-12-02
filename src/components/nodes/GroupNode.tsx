@@ -70,7 +70,7 @@ export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
             key={cubiconNode.id}
             onClick={() => setCurrentPad(cubiconNode.pad)}
           >
-            <CubiconNode cubiconNode={cubiconNode} />
+            <CubiconNode groupNode={groupNode} cubiconNode={cubiconNode} />
           </div>
         ))}
       </div>

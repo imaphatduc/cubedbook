@@ -35,6 +35,7 @@ interface ContextValue {
     cubicon: Cubicon,
     pad: ReactNode
   ) => void;
+  removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
 }
 
 const CubedContext = createContext<ContextValue>(null);
@@ -73,19 +74,39 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     };
 
     setGroupNodes(
-      groupNodes.map((node) => {
-        if (node.id === groupNodeId) {
-          node.cubiconNodes.push(cubiconNode);
+      groupNodes.map((groupNode) => {
+        if (groupNode.id === groupNodeId) {
+          groupNode.cubiconNodes = [...groupNode.cubiconNodes, cubiconNode];
         }
 
-        return node;
+        return groupNode;
+      })
+    );
+  };
+
+  const removeCubiconNode = (groupNodeId: string, cubiconNodeId: string) => {
+    setGroupNodes(
+      groupNodes.map((groupNode) => {
+        if (groupNode.id === groupNodeId) {
+          groupNode.cubiconNodes = groupNode.cubiconNodes.filter(
+            (cubiconNode) => cubiconNode.id !== cubiconNodeId
+          );
+        }
+
+        return groupNode;
       })
     );
   };
 
   return (
     <CubedContext.Provider
-      value={{ scene, groupNodes, addGroupNode, addCubiconNode }}
+      value={{
+        scene,
+        groupNodes,
+        addGroupNode,
+        addCubiconNode,
+        removeCubiconNode,
+      }}
     >
       {children}
     </CubedContext.Provider>
