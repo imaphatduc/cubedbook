@@ -8,6 +8,7 @@ import { CtxSubMenu } from '../menu/CtxSubMenu';
 import { PressMenu } from '../menu/PressMenu';
 import { CubiconNode } from './CubiconNode';
 
+import { RectangleMenuItem } from './menu-items/RectangleMenuItem';
 import { SquareMenuItem } from './menu-items/SquareMenuItem';
 
 interface Props {
@@ -32,8 +33,7 @@ export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
           }
         >
           <CtxSubMenu label="Geometry">
-            <CtxMenuItem label="Rectangle" />
-
+            <RectangleMenuItem groupNode={groupNode} />
             <SquareMenuItem groupNode={groupNode} />
 
             <CtxMenuItem label="Circle" />

@@ -1,26 +1,27 @@
-import { Square } from 'cubecubed';
+import { Rectangle } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
-import { SquarePad } from '../../pads/SquarePad';
+import { RectanglePad } from '../../pads/RectanglePad';
 
 interface Props {
   groupNode: IGroupNode;
 }
 
-export const SquareMenuItem = ({ groupNode }: Props) => {
+export const RectangleMenuItem = ({ groupNode }: Props) => {
   const { addCubiconNode } = useCubed();
 
-  const label = 'Square';
+  const label = 'Rectangle';
 
   return (
     <CtxMenuItem
       label={label}
       onClick={() => {
-        const square = new Square({
+        const rectangle = new Rectangle({
           // @ts-ignore
           group: groupNode.group,
-          sideLength: 2,
+          width: 3,
+          height: 2,
         }).render();
 
         const name = `${label.toLowerCase()}_${
@@ -33,8 +34,8 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
           groupNode.id,
           name,
           // @ts-ignore
-          square,
-          <SquarePad name={name} square={square} />
+          rectangle,
+          <RectanglePad name={name} rectangle={rectangle} />
         );
       }}
     />
