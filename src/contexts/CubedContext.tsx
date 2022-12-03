@@ -35,6 +35,7 @@ interface ContextValue {
     cubicon: Cubicon,
     pad: ReactNode
   ) => void;
+  renameCubiconNode: (groupNodeId: string, cubiconNodeId: string, newName: string) => void;
   removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
 }
 
@@ -84,6 +85,24 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     );
   };
 
+  const renameCubiconNode = (groupNodeId: string, cubiconNodeId: string, newName: string) => {
+    setGroupNodes(
+      groupNodes.map((groupNode) => {
+        if (groupNode.id === groupNodeId) {
+          groupNode.cubiconNodes = groupNode.cubiconNodes.map((cubiconNode) => {
+            if (cubiconNode.id === cubiconNodeId) {
+              cubiconNode.name = newName;
+            }
+
+            return cubiconNode;
+          })
+        }
+
+        return groupNode;
+      })
+    )
+  }
+
   const removeCubiconNode = (groupNodeId: string, cubiconNodeId: string) => {
     setGroupNodes(
       groupNodes.map((groupNode) => {
@@ -105,6 +124,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         groupNodes,
         addGroupNode,
         addCubiconNode,
+        renameCubiconNode,
         removeCubiconNode,
       }}
     >
