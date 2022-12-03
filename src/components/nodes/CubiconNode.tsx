@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, ReactNode, useState } from 'react';
 import { useMenuState } from '@szhsin/react-menu';
 
 import {
@@ -12,9 +12,10 @@ import { CtxMenuItem } from '../menu/CtxMenuItem';
 interface Props {
   groupNode: IGroupNode;
   cubiconNode: ICubiconNode;
+  setCurrentPad: (currentPad: ReactNode) => void;
 }
 
-export const CubiconNode = ({ groupNode, cubiconNode }: Props) => {
+export const CubiconNode = ({ groupNode, cubiconNode, setCurrentPad }: Props) => {
   const { removeCubiconNode } = useCubed();
 
   const [menuProps, toggleMenu] = useMenuState();
@@ -30,6 +31,8 @@ export const CubiconNode = ({ groupNode, cubiconNode }: Props) => {
     removeCubiconNode(groupNode.id, cubiconNode.id);
 
     groupNode.group.remove([cubiconNode.cubicon]);
+
+    setCurrentPad(<></>);
   };
 
   return (
