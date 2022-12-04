@@ -21,19 +21,15 @@ export const SceneSection = ({ currentPad, setCurrentPad }: Props) => {
       <div className="flex justify-between items-center">
         <SectionHeader header="Manuscript" />
 
-        <PressMenu
-          menuButton={
-            <MenuButton className="rounded-md hover:bg-[#666] p-2 h-fit">
-              <Plus size={16} weight="bold" />
-            </MenuButton>
-          }
-        >
-          <CtxMenuItem
-            label="2D Group"
+        <div className="flex gap-1 text-lg text-[#c8d3f5] font-extrabold">
+          <button
+            className="rounded-md hover:bg-[#666] p-2"
             onClick={() => addGroupNode('hello-group', '2d')}
-          />
-          <CtxMenuItem label="3D Group" />
-        </PressMenu>
+          >
+            2D
+          </button>
+          <button className="rounded-md hover:bg-[#666] p-2">3D</button>
+        </div>
       </div>
 
       {groupNodes.map((groupNode, i) => (
