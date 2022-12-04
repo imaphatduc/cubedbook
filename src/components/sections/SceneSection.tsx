@@ -1,19 +1,22 @@
 import { ReactElement } from 'react';
-import { MenuButton } from '@szhsin/react-menu';
-import { Plus } from 'phosphor-react';
 
 import { useCubed } from '../../contexts/CubedContext';
-import { CtxMenuItem } from '../menu/CtxMenuItem';
-import { PressMenu } from '../menu/PressMenu';
 import { GroupNode } from '../nodes/GroupNode';
 import SectionHeader from './components/SectionHeader';
 
 interface Props {
   currentPad: ReactElement;
   setCurrentPad: (currentPad: ReactElement) => void;
+  currentNodeId: string;
+  setCurrentNodeId: (currentNodeId: string) => void;
 }
 
-export const SceneSection = ({ currentPad, setCurrentPad }: Props) => {
+export const SceneSection = ({
+  currentPad,
+  setCurrentPad,
+  currentNodeId,
+  setCurrentNodeId,
+}: Props) => {
   const { groupNodes, addGroupNode } = useCubed();
 
   return (
@@ -38,6 +41,8 @@ export const SceneSection = ({ currentPad, setCurrentPad }: Props) => {
           groupNode={groupNode}
           currentPad={currentPad}
           setCurrentPad={setCurrentPad}
+          currentNodeId={currentNodeId}
+          setCurrentNodeId={setCurrentNodeId}
         />
       ))}
     </div>

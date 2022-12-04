@@ -16,9 +16,17 @@ interface Props {
   groupNode: IGroupNode;
   currentPad: ReactElement;
   setCurrentPad: (currentPad: ReactElement) => void;
+  currentNodeId: string;
+  setCurrentNodeId: (currentNodeId: string) => void;
 }
 
-export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
+export const GroupNode = ({
+  groupNode,
+  currentPad,
+  setCurrentPad,
+  currentNodeId,
+  setCurrentNodeId,
+}: Props) => {
   return (
     <div className="mb-3">
       <div className="flex items-center">
@@ -71,6 +79,8 @@ export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
             groupNode={groupNode}
             cubiconNode={cubiconNode}
             setCurrentPad={setCurrentPad}
+            currentNodeId={currentNodeId}
+            setCurrentNodeId={setCurrentNodeId}
           />
         ))}
       </div>

@@ -21,12 +21,16 @@ interface Props {
   groupNode: IGroupNode;
   cubiconNode: ICubiconNode;
   setCurrentPad: (currentPad: ReactElement) => void;
+  currentNodeId: string;
+  setCurrentNodeId: (currentNodeId: string) => void;
 }
 
 export const CubiconNode = ({
   groupNode,
   cubiconNode,
   setCurrentPad,
+  currentNodeId,
+  setCurrentNodeId,
 }: Props) => {
   const { renameCubiconNode, removeCubiconNode } = useCubed();
 
@@ -61,6 +65,7 @@ export const CubiconNode = ({
     groupNode.group.remove([cubiconNode.cubicon]);
 
     setCurrentPad(<></>);
+    setCurrentNodeId('');
   };
 
   return (
@@ -68,7 +73,19 @@ export const CubiconNode = ({
       className="hover:text-[#c8d3f5] cursor-pointer"
       onContextMenu={openMenu}
     >
-      <div onClick={() => updatePad()}>{cubiconNode.name}</div>
+      <div
+        className={`px-2 rounded-sm ${
+          cubiconNode.id === currentNodeId &&
+          'bg-gray-600 hover:text-gray-200 font-bold'
+        }`}
+        onClick={() => {
+          updatePad();
+
+          setCurrentNodeId(cubiconNode.id);
+        }}
+      >
+        {cubiconNode.name}
+      </div>
 
       <CtxMenu
         menuProps={menuProps}
