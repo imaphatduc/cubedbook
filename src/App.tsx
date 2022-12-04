@@ -1,9 +1,9 @@
-import { ReactNode, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { PadSection } from './components/sections/PadSection';
 import { SceneSection } from './components/sections/SceneSection';
 
 function App() {
-  const [currentPad, setCurrentPad] = useState<ReactNode>(() => <></>);
+  const [currentPad, setCurrentPad] = useState<ReactElement>(() => <></>);
 
   return (
     <div className="App">

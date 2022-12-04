@@ -2,7 +2,7 @@ import {
   createContext,
   FC,
   PropsWithChildren,
-  ReactNode,
+  ReactElement,
   useContext,
   useState,
 } from 'react';
@@ -15,7 +15,7 @@ export interface ICubiconNode {
   id: string;
   name: string;
   cubicon: Cubicon;
-  pad: ReactNode;
+  pad: ReactElement;
 }
 
 export interface IGroupNode {
@@ -33,9 +33,13 @@ interface ContextValue {
     groupNodeId: string,
     name: string,
     cubicon: Cubicon,
-    pad: ReactNode
+    pad: ReactElement
   ) => void;
-  renameCubiconNode: (groupNodeId: string, cubiconNodeId: string, newName: string) => void;
+  renameCubiconNode: (
+    groupNodeId: string,
+    cubiconNodeId: string,
+    newName: string
+  ) => void;
   removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
 }
 
@@ -65,7 +69,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     groupNodeId: string,
     name: string,
     cubicon: Cubicon,
-    pad: ReactNode
+    pad: ReactElement
   ) => {
     const cubiconNode = {
       id: uuid(),
@@ -85,7 +89,11 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     );
   };
 
-  const renameCubiconNode = (groupNodeId: string, cubiconNodeId: string, newName: string) => {
+  const renameCubiconNode = (
+    groupNodeId: string,
+    cubiconNodeId: string,
+    newName: string
+  ) => {
     setGroupNodes(
       groupNodes.map((groupNode) => {
         if (groupNode.id === groupNodeId) {
@@ -95,13 +103,13 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
             }
 
             return cubiconNode;
-          })
+          });
         }
 
         return groupNode;
       })
-    )
-  }
+    );
+  };
 
   const removeCubiconNode = (groupNodeId: string, cubiconNodeId: string) => {
     setGroupNodes(

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { MenuButton } from '@szhsin/react-menu';
 import { Plus } from 'phosphor-react';
 
@@ -9,8 +9,8 @@ import { GroupNode } from '../nodes/GroupNode';
 import SectionHeader from './components/SectionHeader';
 
 interface Props {
-  currentPad: ReactNode;
-  setCurrentPad: (currentPad: ReactNode) => void;
+  currentPad: ReactElement;
+  setCurrentPad: (currentPad: ReactElement) => void;
 }
 
 export const SceneSection = ({ currentPad, setCurrentPad }: Props) => {

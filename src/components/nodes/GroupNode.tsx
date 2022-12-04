@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { cloneElement, ReactElement } from 'react';
 import { MenuButton } from '@szhsin/react-menu';
 import { Plus } from 'phosphor-react';
 
@@ -14,8 +14,8 @@ import { CircleMenuItem } from './menu-items/CircleMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
-  currentPad: ReactNode;
-  setCurrentPad: (currentPad: ReactNode) => void;
+  currentPad: ReactElement;
+  setCurrentPad: (currentPad: ReactElement) => void;
 }
 
 export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
@@ -66,16 +66,12 @@ export const GroupNode = ({ groupNode, currentPad, setCurrentPad }: Props) => {
 
       <div className="ml-8">
         {groupNode.cubiconNodes.map((cubiconNode) => (
-          <div
+          <CubiconNode
             key={cubiconNode.id}
-            onClick={() => setCurrentPad(cubiconNode.pad)}
-          >
-            <CubiconNode
-              groupNode={groupNode}
-              cubiconNode={cubiconNode}
-              setCurrentPad={setCurrentPad}
-            />
-          </div>
+            groupNode={groupNode}
+            cubiconNode={cubiconNode}
+            setCurrentPad={setCurrentPad}
+          />
         ))}
       </div>
     </div>

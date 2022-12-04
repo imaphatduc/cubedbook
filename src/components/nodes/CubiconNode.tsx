@@ -1,4 +1,10 @@
-import { MouseEvent, ReactNode, useRef, useState } from 'react';
+import {
+  cloneElement,
+  MouseEvent,
+  ReactElement,
+  useRef,
+  useState,
+} from 'react';
 import { useMenuState } from '@szhsin/react-menu';
 import Modal from 'react-modal';
 
@@ -14,7 +20,7 @@ import { InputField } from '../fields/InputField';
 interface Props {
   groupNode: IGroupNode;
   cubiconNode: ICubiconNode;
-  setCurrentPad: (currentPad: ReactNode) => void;
+  setCurrentPad: (currentPad: ReactElement) => void;
 }
 
 export const CubiconNode = ({
@@ -31,6 +37,10 @@ export const CubiconNode = ({
 
   const nameRef = useRef<HTMLInputElement>();
 
+  const updatePad = () => {
+    setCurrentPad(cloneElement(cubiconNode.pad, { name: cubiconNode.name }));
+  };
+
   const openMenu = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     toggleMenu(true);
@@ -42,7 +52,7 @@ export const CubiconNode = ({
 
     renameCubiconNode(groupNode.id, cubiconNode.id, nameRef.current.value);
 
-    setCurrentPad(<></>);
+    updatePad();
   };
 
   const removeNode = () => {
@@ -58,7 +68,7 @@ export const CubiconNode = ({
       className="hover:text-[#c8d3f5] cursor-pointer"
       onContextMenu={openMenu}
     >
-      {cubiconNode.name}
+      <div onClick={() => updatePad()}>{cubiconNode.name}</div>
 
       <CtxMenu
         menuProps={menuProps}
