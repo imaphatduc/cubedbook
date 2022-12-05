@@ -1,4 +1,4 @@
-import { Circle } from 'cubecubed';
+import { Circle, PLANE_SHAPE_DEFAULT_CONFIG, Vector2 } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
@@ -19,7 +19,9 @@ export const CircleMenuItem = ({ groupNode }: Props) => {
         const circle = new Circle({
           // @ts-ignore
           group: groupNode.group,
+          position: new Vector2(0, 0),
           radius: 2,
+          CONFIG: PLANE_SHAPE_DEFAULT_CONFIG,
         }).render();
 
         const name = `${label.toLowerCase()}_${

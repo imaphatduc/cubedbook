@@ -1,4 +1,4 @@
-import { Square } from 'cubecubed';
+import { PLANE_SHAPE_DEFAULT_CONFIG, Square, Vector2 } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
@@ -19,7 +19,9 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
         const square = new Square({
           // @ts-ignore
           group: groupNode.group,
+          position: new Vector2(0, 0),
           sideLength: 2,
+          CONFIG: PLANE_SHAPE_DEFAULT_CONFIG,
         }).render();
 
         const name = `${label.toLowerCase()}_${

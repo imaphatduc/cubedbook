@@ -1,4 +1,4 @@
-import { Rectangle } from 'cubecubed';
+import { PLANE_SHAPE_DEFAULT_CONFIG, Rectangle, Vector2 } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
@@ -19,8 +19,10 @@ export const RectangleMenuItem = ({ groupNode }: Props) => {
         const rectangle = new Rectangle({
           // @ts-ignore
           group: groupNode.group,
+          position: new Vector2(0, 0),
           width: 3,
           height: 2,
+          CONFIG: PLANE_SHAPE_DEFAULT_CONFIG,
         }).render();
 
         const name = `${label.toLowerCase()}_${
