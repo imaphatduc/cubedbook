@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 import { PadSection } from './components/sections/PadSection';
 import { SceneSection } from './components/sections/SceneSection';
 

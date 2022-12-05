@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 import { useCubed } from '../../contexts/CubedContext';
 import { GroupNode } from '../nodes/GroupNode';
 import SectionHeader from './components/SectionHeader';

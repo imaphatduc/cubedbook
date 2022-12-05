@@ -1,4 +1,4 @@
-import { MenuItem, MenuItemProps, MenuItemTypeProp } from '@szhsin/react-menu';
+import { MenuItem, MenuItemProps } from '@szhsin/react-menu';
 
 interface MenuItemClassName {
   disabled: boolean;

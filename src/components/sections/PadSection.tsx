@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { useCubed } from '../../contexts/CubedContext';
 import { getPad } from '../../utils/getPad';
 
