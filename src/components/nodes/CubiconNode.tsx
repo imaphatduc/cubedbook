@@ -1,11 +1,4 @@
-import {
-  cloneElement,
-  MouseEvent,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 import { useMenuState } from '@szhsin/react-menu';
 import Modal from 'react-modal';
 
@@ -20,7 +13,7 @@ import { InputField } from '../fields/InputField';
 
 interface Props {
   groupNode: IGroupNode;
-  cubiconNode: ICubiconNode;
+  cubiconNode: ICubiconNode<any>;
   currentNodeId: string;
   setCurrentNodeId: (currentNodeId: string) => void;
 }
@@ -39,10 +32,6 @@ export const CubiconNode = ({
   const [isRenaming, setIsRenaming] = useState(false);
 
   const nameRef = useRef<HTMLInputElement>();
-
-  useEffect(() => {
-    console.log(groupNode.cubiconNodes);
-  }, []);
 
   const openMenu = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();

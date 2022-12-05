@@ -11,18 +11,18 @@ import { Cubicon, Group, Scene } from 'cubecubed';
 
 import { v4 as uuid } from 'uuid';
 
-export interface ICubiconNode {
+export interface ICubiconNode<ICubicon> {
   id: string;
   name: string;
   label: string;
-  cubicon: Cubicon;
+  cubicon: ICubicon;
 }
 
 export interface IGroupNode {
   id: string;
   type?: '2d';
   group: Group;
-  cubiconNodes: ICubiconNode[];
+  cubiconNodes: ICubiconNode<Cubicon>[];
 }
 
 interface ContextValue {
@@ -35,7 +35,7 @@ interface ContextValue {
     label: string,
     cubicon: Cubicon
   ) => void;
-  getCubiconNodeById: (cubiconNodeId: string) => ICubiconNode;
+  getCubiconNodeById: (cubiconNodeId: string) => ICubiconNode<Cubicon>;
   renameCubiconNode: (
     groupNodeId: string,
     cubiconNodeId: string,
