@@ -5,9 +5,10 @@ import { CtxMenuItem } from '../../menu/CtxMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
+  setCurrentNodeId: (currentNodeId: string) => void;
 }
 
-export const CircleMenuItem = ({ groupNode }: Props) => {
+export const CircleMenuItem = ({ groupNode, setCurrentNodeId }: Props) => {
   const { addCubiconNode } = useCubed();
 
   const label = 'Circle';
@@ -31,7 +32,14 @@ export const CircleMenuItem = ({ groupNode }: Props) => {
         }`;
 
         // @ts-ignore
-        addCubiconNode(groupNode.id, name, label, circle);
+        const cubiconNode = addCubiconNode<Circle>(
+          groupNode.id,
+          name,
+          label,
+          circle
+        );
+
+        setCurrentNodeId(cubiconNode.id);
       }}
     />
   );

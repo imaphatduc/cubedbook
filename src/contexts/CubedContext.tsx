@@ -28,12 +28,12 @@ interface ContextValue {
   scene: Scene;
   groupNodes: IGroupNode[];
   addGroupNode: (name: string, type: '2d' | '3d') => void;
-  addCubiconNode: (
+  addCubiconNode: <ICubicon extends Cubicon>(
     groupNodeId: string,
     name: string,
     label: string,
-    cubicon: Cubicon
-  ) => void;
+    cubicon: ICubicon
+  ) => ICubiconNode<ICubicon>;
   getCubiconNodeById: (cubiconNodeId: string) => ICubiconNode<Cubicon>;
   renameCubiconNode: (
     groupNodeId: string,
@@ -65,13 +65,13 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  const addCubiconNode = (
+  const addCubiconNode = <ICubicon extends Cubicon>(
     groupNodeId: string,
     name: string,
     label: string,
-    cubicon: Cubicon
+    cubicon: ICubicon
   ) => {
-    const cubiconNode = {
+    const cubiconNode: ICubiconNode<ICubicon> = {
       id: uuid(),
       name,
       label,
@@ -87,6 +87,8 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         return groupNode;
       })
     );
+
+    return cubiconNode;
   };
 
   const getCubiconNodeById = (cubiconNodeId: string) => {

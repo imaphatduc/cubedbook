@@ -37,9 +37,18 @@ export const GroupNode = ({
           }
         >
           <CtxSubMenu label="Geometry">
-            <RectangleMenuItem groupNode={groupNode} />
-            <SquareMenuItem groupNode={groupNode} />
-            <CircleMenuItem groupNode={groupNode} />
+            <RectangleMenuItem
+              groupNode={groupNode}
+              setCurrentNodeId={setCurrentNodeId}
+            />
+            <SquareMenuItem
+              groupNode={groupNode}
+              setCurrentNodeId={setCurrentNodeId}
+            />
+            <CircleMenuItem
+              groupNode={groupNode}
+              setCurrentNodeId={setCurrentNodeId}
+            />
 
             <CtxMenuItem label="Line" />
             <CtxMenuItem label="Vector Shape" />
