@@ -2,7 +2,6 @@ import { Circle } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
-import { CirclePad } from '../../pads/CirclePad';
 
 interface Props {
   groupNode: IGroupNode;
@@ -29,13 +28,8 @@ export const CircleMenuItem = ({ groupNode }: Props) => {
           ).length
         }`;
 
-        addCubiconNode(
-          groupNode.id,
-          name,
-          // @ts-ignore
-          circle,
-          <CirclePad name={name} circle={circle} />
-        );
+        // @ts-ignore
+        addCubiconNode(groupNode.id, name, label, circle);
       }}
     />
   );

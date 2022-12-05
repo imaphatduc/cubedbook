@@ -2,7 +2,6 @@ import { Square } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
-import { SquarePad } from '../../pads/SquarePad';
 
 interface Props {
   groupNode: IGroupNode;
@@ -29,13 +28,8 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
           ).length
         }`;
 
-        addCubiconNode(
-          groupNode.id,
-          name,
-          // @ts-ignore
-          square,
-          <SquarePad name={name} square={square} />
-        );
+        // @ts-ignore
+        addCubiconNode(groupNode.id, name, label, square);
       }}
     />
   );

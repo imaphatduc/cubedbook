@@ -2,6 +2,7 @@ import {
   cloneElement,
   MouseEvent,
   ReactElement,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -20,7 +21,6 @@ import { InputField } from '../fields/InputField';
 interface Props {
   groupNode: IGroupNode;
   cubiconNode: ICubiconNode;
-  setCurrentPad: (currentPad: ReactElement) => void;
   currentNodeId: string;
   setCurrentNodeId: (currentNodeId: string) => void;
 }
@@ -28,7 +28,6 @@ interface Props {
 export const CubiconNode = ({
   groupNode,
   cubiconNode,
-  setCurrentPad,
   currentNodeId,
   setCurrentNodeId,
 }: Props) => {
@@ -41,9 +40,9 @@ export const CubiconNode = ({
 
   const nameRef = useRef<HTMLInputElement>();
 
-  const updatePad = () => {
-    setCurrentPad(cloneElement(cubiconNode.pad, { name: cubiconNode.name }));
-  };
+  useEffect(() => {
+    console.log(groupNode.cubiconNodes);
+  }, []);
 
   const openMenu = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -55,8 +54,6 @@ export const CubiconNode = ({
     setIsRenaming(false);
 
     renameCubiconNode(groupNode.id, cubiconNode.id, nameRef.current.value);
-
-    updatePad();
   };
 
   const removeNode = () => {
@@ -64,7 +61,6 @@ export const CubiconNode = ({
 
     groupNode.group.remove([cubiconNode.cubicon]);
 
-    setCurrentPad(<></>);
     setCurrentNodeId('');
   };
 
@@ -79,8 +75,6 @@ export const CubiconNode = ({
           'bg-gray-600 hover:text-gray-200 font-bold'
         }`}
         onClick={() => {
-          updatePad();
-
           setCurrentNodeId(cubiconNode.id);
         }}
       >

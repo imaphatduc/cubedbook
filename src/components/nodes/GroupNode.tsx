@@ -14,16 +14,12 @@ import { CircleMenuItem } from './menu-items/CircleMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
-  currentPad: ReactElement;
-  setCurrentPad: (currentPad: ReactElement) => void;
   currentNodeId: string;
   setCurrentNodeId: (currentNodeId: string) => void;
 }
 
 export const GroupNode = ({
   groupNode,
-  currentPad,
-  setCurrentPad,
   currentNodeId,
   setCurrentNodeId,
 }: Props) => {
@@ -78,7 +74,6 @@ export const GroupNode = ({
             key={cubiconNode.id}
             groupNode={groupNode}
             cubiconNode={cubiconNode}
-            setCurrentPad={setCurrentPad}
             currentNodeId={currentNodeId}
             setCurrentNodeId={setCurrentNodeId}
           />

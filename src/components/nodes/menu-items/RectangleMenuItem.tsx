@@ -2,7 +2,6 @@ import { Rectangle } from 'cubecubed';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
-import { RectanglePad } from '../../pads/RectanglePad';
 
 interface Props {
   groupNode: IGroupNode;
@@ -30,13 +29,8 @@ export const RectangleMenuItem = ({ groupNode }: Props) => {
           ).length
         }`;
 
-        addCubiconNode(
-          groupNode.id,
-          name,
-          // @ts-ignore
-          rectangle,
-          <RectanglePad name={name} rectangle={rectangle} />
-        );
+        // @ts-ignore
+        addCubiconNode(groupNode.id, name, label, rectangle);
       }}
     />
   );

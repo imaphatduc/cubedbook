@@ -1,18 +1,23 @@
 import { ReactElement } from 'react';
+import { useCubed } from '../../contexts/CubedContext';
+import { getPad } from '../../utils/getPad';
 
 import SectionHeader from './components/SectionHeader';
 
 interface Props {
-  currentPad: ReactElement;
-  setCurrentPad: (currentPad: ReactElement) => void;
+  currentNodeId: string;
 }
 
-export const PadSection = ({ currentPad, setCurrentPad }: Props) => {
+export const PadSection = ({ currentNodeId }: Props) => {
+  const { getCubiconNodeById } = useCubed();
+
+  const cubiconNode = getCubiconNodeById(currentNodeId);
+
   return (
     <div>
       <SectionHeader header="Editor" />
 
-      {currentPad}
+      {currentNodeId && getPad(cubiconNode)}
     </div>
   );
 };

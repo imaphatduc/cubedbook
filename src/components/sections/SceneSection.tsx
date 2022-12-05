@@ -5,18 +5,11 @@ import { GroupNode } from '../nodes/GroupNode';
 import SectionHeader from './components/SectionHeader';
 
 interface Props {
-  currentPad: ReactElement;
-  setCurrentPad: (currentPad: ReactElement) => void;
   currentNodeId: string;
   setCurrentNodeId: (currentNodeId: string) => void;
 }
 
-export const SceneSection = ({
-  currentPad,
-  setCurrentPad,
-  currentNodeId,
-  setCurrentNodeId,
-}: Props) => {
+export const SceneSection = ({ currentNodeId, setCurrentNodeId }: Props) => {
   const { groupNodes, addGroupNode } = useCubed();
 
   return (
@@ -39,8 +32,6 @@ export const SceneSection = ({
         <GroupNode
           key={i}
           groupNode={groupNode}
-          currentPad={currentPad}
-          setCurrentPad={setCurrentPad}
           currentNodeId={currentNodeId}
           setCurrentNodeId={setCurrentNodeId}
         />

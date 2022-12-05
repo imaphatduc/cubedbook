@@ -14,8 +14,8 @@ import { v4 as uuid } from 'uuid';
 export interface ICubiconNode {
   id: string;
   name: string;
+  label: string;
   cubicon: Cubicon;
-  pad: ReactElement;
 }
 
 export interface IGroupNode {
@@ -32,9 +32,10 @@ interface ContextValue {
   addCubiconNode: (
     groupNodeId: string,
     name: string,
-    cubicon: Cubicon,
-    pad: ReactElement
+    label: string,
+    cubicon: Cubicon
   ) => void;
+  getCubiconNodeById: (cubiconNodeId: string) => ICubiconNode;
   renameCubiconNode: (
     groupNodeId: string,
     cubiconNodeId: string,
@@ -68,14 +69,14 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
   const addCubiconNode = (
     groupNodeId: string,
     name: string,
-    cubicon: Cubicon,
-    pad: ReactElement
+    label: string,
+    cubicon: Cubicon
   ) => {
     const cubiconNode = {
       id: uuid(),
       name,
+      label,
       cubicon,
-      pad,
     };
 
     setGroupNodes(
@@ -87,6 +88,15 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         return groupNode;
       })
     );
+  };
+
+  const getCubiconNodeById = (cubiconNodeId: string) => {
+    const cubiconNode = groupNodes
+      .map((groupNode) => groupNode.cubiconNodes)
+      .flat()
+      .find((cubiconNode) => cubiconNode.id === cubiconNodeId);
+
+    return cubiconNode;
   };
 
   const renameCubiconNode = (
@@ -132,6 +142,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         groupNodes,
         addGroupNode,
         addCubiconNode,
+        getCubiconNodeById,
         renameCubiconNode,
         removeCubiconNode,
       }}
