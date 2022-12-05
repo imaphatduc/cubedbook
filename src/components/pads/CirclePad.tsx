@@ -5,13 +5,13 @@ import { Circle } from 'cubecubed';
 import { InputField } from '../fields/InputField';
 import { PadOption } from './utils/PadOption';
 import { PadLayout } from './utils/PadLayout';
+import { ICubiconNode } from '../../contexts/CubedContext';
 
 interface Props {
-  name: string;
-  circle: Circle;
+  node: ICubiconNode<Circle>;
 }
 
-export const CirclePad = ({ name, circle }: Props) => {
+export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
   const {
     radius,
     CONFIG: { fillColor, fillOpacity, strokeColor, strokeWidth },
@@ -37,7 +37,7 @@ export const CirclePad = ({ name, circle }: Props) => {
   };
 
   return (
-    <PadLayout name={name} onPadSubmit={render}>
+    <PadLayout key={id} name={name} onPadSubmit={render}>
       <PadOption label="radius">
         <InputField defaultValue={radius} ref={radiusRef} />
       </PadOption>

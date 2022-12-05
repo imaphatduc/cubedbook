@@ -5,13 +5,13 @@ import { Square } from 'cubecubed';
 import { InputField } from '../fields/InputField';
 import { PadOption } from './utils/PadOption';
 import { PadLayout } from './utils/PadLayout';
+import { ICubiconNode } from '../../contexts/CubedContext';
 
 interface Props {
-  name: string;
-  square: Square;
+  node: ICubiconNode<Square>;
 }
 
-export const SquarePad = ({ name, square }: Props) => {
+export const SquarePad = ({ node: { id, name, cubicon: square } }: Props) => {
   const {
     sideLength,
     CONFIG: { fillColor, fillOpacity, strokeColor, strokeWidth },
@@ -38,7 +38,7 @@ export const SquarePad = ({ name, square }: Props) => {
   };
 
   return (
-    <PadLayout name={name} onPadSubmit={render}>
+    <PadLayout key={id} name={name} onPadSubmit={render}>
       <PadOption label="side_length">
         <InputField defaultValue={sideLength} ref={sideLengthRef} />
       </PadOption>

@@ -3,23 +3,18 @@ import { RectanglePad } from '../components/pads/RectanglePad';
 import { SquarePad } from '../components/pads/SquarePad';
 import { ICubiconNode } from '../contexts/CubedContext';
 
-export const getPad = (cubiconNode: ICubiconNode) => {
+export const getPad = (cubiconNode: ICubiconNode<any>) => {
   switch (cubiconNode.label.toLowerCase()) {
     case 'rectangle': {
-      return (
-        // @ts-ignore
-        <RectanglePad name={cubiconNode.name} rectangle={cubiconNode.cubicon} />
-      );
+      return <RectanglePad node={cubiconNode} />;
     }
 
     case 'square': {
-      // @ts-ignore
-      return <SquarePad name={cubiconNode.name} square={cubiconNode.cubicon} />;
+      return <SquarePad node={cubiconNode} />;
     }
 
     case 'circle': {
-      // @ts-ignore
-      return <CirclePad name={cubiconNode.name} circle={cubiconNode.cubicon} />;
+      return <CirclePad node={cubiconNode} />;
     }
 
     default:

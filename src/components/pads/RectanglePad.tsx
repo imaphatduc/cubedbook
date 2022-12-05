@@ -5,13 +5,15 @@ import { Rectangle } from 'cubecubed';
 import { InputField } from '../fields/InputField';
 import { PadOption } from './utils/PadOption';
 import { PadLayout } from './utils/PadLayout';
+import { ICubiconNode } from '../../contexts/CubedContext';
 
 interface Props {
-  name: string;
-  rectangle: Rectangle;
+  node: ICubiconNode<Rectangle>;
 }
 
-export const RectanglePad = ({ name, rectangle }: Props) => {
+export const RectanglePad = ({
+  node: { id, name, cubicon: rectangle },
+}: Props) => {
   const {
     width,
     height,
@@ -40,7 +42,7 @@ export const RectanglePad = ({ name, rectangle }: Props) => {
   };
 
   return (
-    <PadLayout name={name} onPadSubmit={render}>
+    <PadLayout key={id} name={name} onPadSubmit={render}>
       <PadOption label="width">
         <InputField defaultValue={width} ref={widthRef} />
       </PadOption>
