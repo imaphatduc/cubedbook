@@ -1,11 +1,13 @@
 import { FormEvent, useRef } from 'react';
 
-import { Circle } from 'cubecubed';
+import { Circle, Vector2 } from 'cubecubed';
 
 import { InputField } from '../fields/InputField';
 import { PadOption } from './utils/PadOption';
 import { PadLayout } from './utils/PadLayout';
 import { ICubiconNode } from '../../contexts/CubedContext';
+import { InputFieldWithLabel } from '../fields/InputFieldWithLabel';
+import { MultipleInputFieldLayout } from './utils/MultipleInputFieldLayout';
 
 interface Props {
   node: ICubiconNode<Circle>;
@@ -17,7 +19,14 @@ export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
     CONFIG: { fillColor, fillOpacity, strokeColor, strokeWidth },
   } = circle;
 
+  // @ts-ignore
+  const position = circle.position as Vector2;
+
+  const positionXRef = useRef<HTMLInputElement>();
+  const positionYRef = useRef<HTMLInputElement>();
+
   const radiusRef = useRef<HTMLInputElement>();
+
   const fillColorRef = useRef<HTMLInputElement>();
   const fillOpacityRef = useRef<HTMLInputElement>();
   const strokeColorRef = useRef<HTMLInputElement>();
@@ -25,6 +34,12 @@ export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
 
   const render = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // @ts-ignore
+    circle.position = new Vector2(
+      parseInt(positionXRef.current.value),
+      parseInt(positionYRef.current.value)
+    );
 
     circle.radius = parseInt(radiusRef.current.value);
 
@@ -38,9 +53,25 @@ export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
 
   return (
     <PadLayout key={id} name={name} onPadSubmit={render}>
+      <PadOption label="position">
+        <MultipleInputFieldLayout>
+          <InputFieldWithLabel
+            label="x"
+            defaultValue={position.x}
+            ref={positionXRef}
+          />
+          <InputFieldWithLabel
+            label="y"
+            defaultValue={position.y}
+            ref={positionYRef}
+          />
+        </MultipleInputFieldLayout>
+      </PadOption>
+
       <PadOption label="radius">
         <InputField defaultValue={radius} ref={radiusRef} />
       </PadOption>
+
       <hr className="border-white opacity-10 pb-2" />
       <PadOption label="fill_color">
         <InputField defaultValue={fillColor} ref={fillColorRef} />
