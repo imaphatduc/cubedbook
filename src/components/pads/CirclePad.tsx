@@ -3,7 +3,7 @@ import { FormEvent, useRef } from 'react';
 import { Circle, Vector2 } from 'cubecubed';
 
 import { InputField } from '../fields/InputField';
-import { PadOption } from './utils/PadOption';
+import { PadOptionLayout } from './utils/PadOptionLayout';
 import { PadLayout } from './utils/PadLayout';
 import { ICubiconNode } from '../../contexts/CubedContext';
 import { InputFieldWithLabel } from '../fields/InputFieldWithLabel';
@@ -53,7 +53,7 @@ export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
 
   return (
     <PadLayout key={id} name={name} onPadSubmit={render}>
-      <PadOption label="position">
+      <PadOptionLayout label="position">
         <MultipleInputFieldLayout>
           <InputFieldWithLabel
             label="x"
@@ -66,25 +66,25 @@ export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
             ref={positionYRef}
           />
         </MultipleInputFieldLayout>
-      </PadOption>
+      </PadOptionLayout>
 
-      <PadOption label="radius">
+      <PadOptionLayout label="radius">
         <InputField defaultValue={radius} ref={radiusRef} />
-      </PadOption>
+      </PadOptionLayout>
 
       <hr className="border-white opacity-10 pb-2" />
-      <PadOption label="fill_color">
+      <PadOptionLayout label="fill_color">
         <InputField defaultValue={fillColor} ref={fillColorRef} />
-      </PadOption>
-      <PadOption label="fill_opacity">
+      </PadOptionLayout>
+      <PadOptionLayout label="fill_opacity">
         <InputField defaultValue={fillOpacity} ref={fillOpacityRef} />
-      </PadOption>
-      <PadOption label="stroke_color">
+      </PadOptionLayout>
+      <PadOptionLayout label="stroke_color">
         <InputField defaultValue={strokeColor} ref={strokeColorRef} />
-      </PadOption>
-      <PadOption label="stroke_width">
+      </PadOptionLayout>
+      <PadOptionLayout label="stroke_width">
         <InputField defaultValue={strokeWidth} ref={strokeWidthRef} />
-      </PadOption>
+      </PadOptionLayout>
     </PadLayout>
   );
 };
