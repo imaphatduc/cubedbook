@@ -60,8 +60,7 @@ export const CubiconNode = ({
     >
       <div
         className={`px-2 rounded-sm ${
-          cubiconNode.id === currentNodeId &&
-          'bg-gray-600 hover:text-gray-200 font-bold'
+          cubiconNode.id === currentNodeId && 'text-blue-300 font-bold'
         }`}
         onClick={() => {
           setCurrentNodeId(cubiconNode.id);

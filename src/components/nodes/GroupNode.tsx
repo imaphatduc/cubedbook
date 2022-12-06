@@ -1,5 +1,5 @@
 import { MenuButton } from '@szhsin/react-menu';
-import { Plus } from 'phosphor-react';
+import { Cube, Plus } from 'phosphor-react';
 
 import { IGroupNode } from '../../contexts/CubedContext';
 import { CtxMenuItem } from '../menu/CtxMenuItem';
@@ -25,6 +25,8 @@ export const GroupNode = ({
   return (
     <div className="mb-3">
       <div className="flex items-center">
+        <Cube size={15} />
+
         <p className="m-0 ml-3">{groupNode.group.name}</p>
 
         <PressMenu
@@ -76,7 +78,7 @@ export const GroupNode = ({
         </PressMenu>
       </div>
 
-      <div className="ml-8">
+      <div className="border-l-2 border-l-[#555] ml-1 pl-6">
         {groupNode.cubiconNodes.map((cubiconNode) => (
           <CubiconNode
             key={cubiconNode.id}
