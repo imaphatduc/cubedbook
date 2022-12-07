@@ -5,8 +5,8 @@ interface Props {
 export const Ruler = ({ timeSegments }: Props) => {
   return (
     <>
-      <div className="bg-[#222] border-r border-b border-[#444]"></div>
-      <div className="bg-[#222] border-b border-[#444]">
+      <div className="border-r border-b border-[#444]"></div>
+      <div className="border-b border-[#444]">
         <div className="grid grid-cols-[repeat(auto-fill,100px)] divide-x divide-[#444]">
           {[...Array(timeSegments)].map((_, i) => (
             <div

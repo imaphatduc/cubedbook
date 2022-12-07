@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 
-import { Cubicon, Group, Scene } from 'cubecubed';
+import { Animation, Cubicon, Group, Scene } from 'cubecubed';
 
 import { v4 as uuid } from 'uuid';
 
@@ -17,11 +17,20 @@ export interface ICubiconNode<ICubicon> {
   cubicon: ICubicon;
 }
 
+export interface IAnimationNode<IAnimation> {
+  id: string;
+  name: string;
+  label: string;
+  animation: IAnimation;
+  cubiconNode: ICubiconNode<Animation>;
+}
+
 export interface IGroupNode {
   id: string;
   type?: '2d';
   group: Group;
   cubiconNodes: ICubiconNode<Cubicon>[];
+  animationNodes: IAnimationNode<Animation>[];
 }
 
 interface ContextValue {
@@ -59,6 +68,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         type,
         group: new Group(name, scene),
         cubiconNodes: [],
+        animationNodes: [],
       };
 
       setGroupNodes([...groupNodes, groupNode]);

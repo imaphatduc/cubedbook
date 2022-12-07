@@ -14,7 +14,7 @@ export const AnimationNode = ({ timeSegments, keyframes }: Props) => {
           disabled
           style={{
             width: '100%',
-            height: '100%',
+            height: '30px',
             maxWidth: '100%',
           }}
         />
@@ -22,13 +22,15 @@ export const AnimationNode = ({ timeSegments, keyframes }: Props) => {
       <div className="bg-[#222] border-b border-[#444]">
         <div className="grid grid-cols-[repeat(auto-fill,100px)] divide-x divide-[#444]">
           {[...Array(timeSegments)].map((_, i) => (
-            <div key={i} className="h-8 flex items-center">
+            <div key={i} className="flex flex-col gap-2 justify-center py-2">
               {keyframes.includes(i) && (
-                <Diamond
-                  size={16}
-                  weight="fill"
-                  className="-ml-[8px] text-red-500"
-                />
+                <>
+                  <Diamond
+                    size={16}
+                    weight="fill"
+                    className="-ml-[8px] text-red-500"
+                  />
+                </>
               )}
             </div>
           ))}
