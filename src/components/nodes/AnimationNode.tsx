@@ -23,11 +23,9 @@ export const AnimationNode = ({
 
   const diamondWidth = 16;
 
-  const getBounds = (i: number) => {
-    return {
-      left: -i * unitSegmentPixels,
-      right: (unitSegmentsCount - i) * unitSegmentPixels,
-    };
+  const bounds = {
+    left: 0,
+    right: unitSegmentsCount * unitSegmentPixels,
   };
 
   return (
@@ -44,18 +42,37 @@ export const AnimationNode = ({
       </div>
       <div className="bg-[#222] border-b border-[#444]">
         <div className="flex flex-col gap-2 justify-center py-2">
+          <Draggable
+            axis="x"
+            defaultPosition={{ x: timeIndices[0] * unitSegmentPixels, y: 0 }}
+            grid={[unitSegmentPixels, 0]}
+            bounds={bounds}
+          >
+            <Diamond
+              size={diamondWidth}
+              weight="fill"
+              className="text-cubedpink"
+              style={{
+                marginLeft: `-${diamondWidth / 2}px`,
+              }}
+            />
+          </Draggable>
+
           {timeIndices.map((index, i) => (
             <Draggable
               key={i}
               axis="x"
               defaultPosition={{ x: index * unitSegmentPixels, y: 0 }}
               grid={[unitSegmentPixels, 0]}
-              bounds={getBounds(i)}
+              bounds={bounds}
             >
               <Diamond
                 size={diamondWidth}
                 weight="fill"
-                className={`-ml-[${diamondWidth / 2}px] text-red-500`}
+                className="text-cubedlightblue"
+                style={{
+                  marginLeft: `-${diamondWidth / 2}px`,
+                }}
               />
             </Draggable>
           ))}

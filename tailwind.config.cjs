@@ -5,8 +5,10 @@ module.exports = {
     extend: {
       colors: {
         cubedpink: '#d31dde',
-        cubedpurple: '#a61ee8',
+        cubedpurple: '#4935e8',
+        cubedlightpurple: '#a61ee8',
         cubedblue: '#560bff',
+        cubedlightblue: '#3b59ff',
         cubeddark: '#2e0f52',
       },
       keyframes: {
