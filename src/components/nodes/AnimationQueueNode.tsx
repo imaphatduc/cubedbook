@@ -38,7 +38,7 @@ export const AnimationQueueNode = ({
           y: 0,
         }}
         grid={[unitSegmentPixels, 0]}
-        bounds={{ ...bounds, left: startPixel }}
+        bounds={bounds}
         onDrag={(_, { x }) => {
           setStartTime(x / unitSegmentPixels);
 
