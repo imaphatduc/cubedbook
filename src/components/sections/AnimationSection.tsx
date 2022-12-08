@@ -13,6 +13,21 @@ export const AnimationSection = () => {
 
   const groupsCount = 1;
 
+  const animationQueue = {
+    start: 1,
+    queue: [
+      {
+        duration: 2,
+      },
+      {
+        duration: 3,
+      },
+      {
+        duration: 3.5,
+      },
+    ],
+  };
+
   return (
     <div className="grid grid-cols-[16rem_1fr] grid-rows-[5rem] overflow-y-scroll h-[33vh] w-full">
       <div className="col-span-2 grid grid-cols-[16rem_1fr] sticky top-0 bg-[#1b1b1b]">
@@ -40,7 +55,7 @@ export const AnimationSection = () => {
             unitSegmentValue={unitSegmentValue}
             frameSegmentValue={frameSegmentValue}
             unitSegmentsCount={unitSegmentsCount}
-            timestamps={[0.5, 2, 3, 5.5]}
+            animationQueue={animationQueue}
           />
         </Fragment>
       ))}

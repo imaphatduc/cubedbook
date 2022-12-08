@@ -1,13 +1,17 @@
-import { Diamond } from 'phosphor-react';
-import Draggable from 'react-draggable';
 import { InputField } from '../fields/InputField';
+import { AnimationQueueNode } from './AnimationQueueNode';
 
 interface Props {
   unitSegmentPixels: number;
   unitSegmentValue: number;
   frameSegmentValue: number;
   unitSegmentsCount: number;
-  timestamps: number[];
+  animationQueue: {
+    start: number;
+    queue: {
+      duration: number;
+    }[];
+  };
 }
 
 export const AnimationNode = ({
@@ -15,13 +19,9 @@ export const AnimationNode = ({
   unitSegmentValue,
   frameSegmentValue,
   unitSegmentsCount,
-  timestamps,
+  animationQueue,
 }: Props) => {
   const frameUnitSegmentsCount = frameSegmentValue / unitSegmentValue;
-
-  const timeIndices = timestamps.map((stamp) => stamp / unitSegmentValue);
-
-  const diamondWidth = 16;
 
   const bounds = {
     left: 0,
@@ -40,43 +40,14 @@ export const AnimationNode = ({
           }}
         />
       </div>
-      <div className="bg-[#222] border-b border-[#444]">
-        <div className="flex flex-col gap-2 justify-center py-2">
-          <Draggable
-            axis="x"
-            defaultPosition={{ x: timeIndices[0] * unitSegmentPixels, y: 0 }}
-            grid={[unitSegmentPixels, 0]}
-            bounds={bounds}
-          >
-            <Diamond
-              size={diamondWidth}
-              weight="fill"
-              className="text-cubedpink"
-              style={{
-                marginLeft: `-${diamondWidth / 2}px`,
-              }}
-            />
-          </Draggable>
 
-          {timeIndices.map((index, i) => (
-            <Draggable
-              key={i}
-              axis="x"
-              defaultPosition={{ x: index * unitSegmentPixels, y: 0 }}
-              grid={[unitSegmentPixels, 0]}
-              bounds={bounds}
-            >
-              <Diamond
-                size={diamondWidth}
-                weight="fill"
-                className="text-cubedlightblue"
-                style={{
-                  marginLeft: `-${diamondWidth / 2}px`,
-                }}
-              />
-            </Draggable>
-          ))}
-        </div>
+      <div className="bg-[#222] border-b border-[#444]">
+        <AnimationQueueNode
+          unitSegmentPixels={unitSegmentPixels}
+          unitSegmentValue={unitSegmentValue}
+          bounds={bounds}
+          animationQueue={animationQueue}
+        />
 
         <div
           style={{
