@@ -1,3 +1,6 @@
+import { v4 as uuid } from 'uuid';
+
+import { IAnimationQueue } from '../../contexts/CubedContext';
 import { InputField } from '../fields/InputField';
 import { AnimationQueueNode } from './AnimationQueueNode';
 
@@ -5,12 +8,11 @@ interface Props {
   unitSegmentPixels: number;
   unitSegmentValue: number;
   frameSegmentValue: number;
+  groupName: string;
   unitSegmentsCount: number;
-  animationQueue: {
+  animationQueues: {
     start: number;
-    queue: {
-      duration: number;
-    }[];
+    queues: IAnimationQueue<any>[];
   };
 }
 
@@ -18,8 +20,9 @@ export const AnimationNode = ({
   unitSegmentPixels,
   unitSegmentValue,
   frameSegmentValue,
+  groupName,
   unitSegmentsCount,
-  animationQueue,
+  animationQueues,
 }: Props) => {
   const frameUnitSegmentsCount = frameSegmentValue / unitSegmentValue;
 
@@ -32,6 +35,7 @@ export const AnimationNode = ({
     <>
       <div className="bg-[#222] border-r border-b border-[#444]">
         <InputField
+          placeholder={groupName}
           disabled
           style={{
             width: '100%',
@@ -42,12 +46,16 @@ export const AnimationNode = ({
       </div>
 
       <div className="bg-[#222] border-b border-[#444]">
-        <AnimationQueueNode
-          unitSegmentPixels={unitSegmentPixels}
-          unitSegmentValue={unitSegmentValue}
-          bounds={bounds}
-          animationQueue={animationQueue}
-        />
+        {animationQueues.queues.map((animationQueue) => (
+          <AnimationQueueNode
+            key={uuid()}
+            unitSegmentPixels={unitSegmentPixels}
+            unitSegmentValue={unitSegmentValue}
+            bounds={bounds}
+            start={animationQueues.start}
+            animationQueue={animationQueue}
+          />
+        ))}
 
         <div
           style={{

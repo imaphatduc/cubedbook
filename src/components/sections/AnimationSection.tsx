@@ -1,32 +1,17 @@
 import { Play } from 'phosphor-react';
-import { Fragment } from 'react';
-import { AnimationNode } from '../nodes/AnimationNode';
+import { useCubed } from '../../contexts/CubedContext';
+import { GroupAnimation } from './components/GroupAnimation';
 import { Ruler } from './components/Ruler';
 
 export const AnimationSection = () => {
+  const { groupNodes } = useCubed();
+
   const unitSegmentPixels = 25;
 
   const unitSegmentValue = 0.5;
   const frameSegmentValue = 2;
 
   const unitSegmentsCount = 28;
-
-  const groupsCount = 1;
-
-  const animationQueue = {
-    start: 1,
-    queue: [
-      {
-        duration: 2,
-      },
-      {
-        duration: 3,
-      },
-      {
-        duration: 3.5,
-      },
-    ],
-  };
 
   return (
     <div className="grid grid-cols-[16rem_1fr] grid-rows-[5rem] overflow-y-scroll h-[33vh] w-full">
@@ -48,16 +33,15 @@ export const AnimationSection = () => {
         />
       </div>
 
-      {[...Array(groupsCount)].map((_, i) => (
-        <Fragment key={i}>
-          <AnimationNode
-            unitSegmentPixels={unitSegmentPixels}
-            unitSegmentValue={unitSegmentValue}
-            frameSegmentValue={frameSegmentValue}
-            unitSegmentsCount={unitSegmentsCount}
-            animationQueue={animationQueue}
-          />
-        </Fragment>
+      {groupNodes.map((groupNode) => (
+        <GroupAnimation
+          key={groupNode.id}
+          groupNode={groupNode}
+          unitSegmentPixels={unitSegmentPixels}
+          unitSegmentValue={unitSegmentValue}
+          frameSegmentValue={frameSegmentValue}
+          unitSegmentsCount={unitSegmentsCount}
+        />
       ))}
     </div>
   );

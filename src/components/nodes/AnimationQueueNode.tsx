@@ -1,28 +1,28 @@
 import { useState } from 'react';
 import Draggable, { DraggableBounds } from 'react-draggable';
 import { Diamond } from 'phosphor-react';
+import { IAnimationQueue } from '../../contexts/CubedContext';
 
 interface Props {
   unitSegmentPixels: number;
   unitSegmentValue: number;
   bounds: DraggableBounds;
-  animationQueue: {
-    start: number;
-    queue: {
-      duration: number;
-    }[];
-  };
+  start: number;
+  animationQueue: IAnimationQueue<any>;
 }
+
 export const AnimationQueueNode = ({
   unitSegmentPixels,
   unitSegmentValue,
   bounds,
+  start,
   animationQueue,
 }: Props) => {
-  const [startTime, setStartTime] = useState(animationQueue.start);
+  const [startTime, setStartTime] = useState(start);
 
-  const keyframes = animationQueue.queue.map(
-    (animation) => (startTime + animation.duration) / unitSegmentValue
+  const keyframes = animationQueue.map(
+    (animationNode) =>
+      (startTime + animationNode.animation.duration) / unitSegmentValue
   );
 
   const startPixel = startTime * unitSegmentPixels;
