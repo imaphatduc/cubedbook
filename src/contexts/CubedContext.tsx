@@ -19,18 +19,19 @@ export interface ICubiconNode<ICubicon> {
 
 export interface IAnimationNode<IAnimation> {
   id: string;
-  name: string;
   label: string;
   animation: IAnimation;
-  cubiconNode: ICubiconNode<Animation>;
+  cubiconNodeId: string;
 }
+
+export type IAnimationQueue<IAnimation> = IAnimationNode<IAnimation>[];
 
 export interface IGroupNode {
   id: string;
   type?: '2d';
   group: Group;
   cubiconNodes: ICubiconNode<Cubicon>[];
-  animationNodes: IAnimationNode<Animation>[];
+  animationQueues: IAnimationQueue<Animation>[];
 }
 
 interface ContextValue {
@@ -50,6 +51,15 @@ interface ContextValue {
     newName: string
   ) => void;
   removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
+  makeAnimationNode: <IAnimation extends Animation>(
+    label: string,
+    cubiconNodeId: string,
+    animation: IAnimation
+  ) => IAnimationNode<IAnimation>;
+  addAnimationQueue: <IAnimation extends Animation>(
+    groupNodeId: string,
+    animationQueue: IAnimationQueue<IAnimation>
+  ) => void;
 }
 
 const CubedContext = createContext<ContextValue>(null);
@@ -68,7 +78,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         type,
         group: new Group(name, scene),
         cubiconNodes: [],
-        animationNodes: [],
+        animationQueues: [],
       };
 
       setGroupNodes([...groupNodes, groupNode]);
@@ -146,6 +156,39 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     );
   };
 
+  const makeAnimationNode = <IAnimation extends Animation>(
+    label: string,
+    cubiconNodeId: string,
+    animation: IAnimation
+  ) => {
+    const animationNode: IAnimationNode<IAnimation> = {
+      id: uuid(),
+      label,
+      cubiconNodeId,
+      animation,
+    };
+
+    return animationNode;
+  };
+
+  const addAnimationQueue = <IAnimation extends Animation>(
+    groupNodeId: string,
+    animationQueue: IAnimationQueue<IAnimation>
+  ) => {
+    setGroupNodes(
+      groupNodes.map((groupNode) => {
+        if (groupNode.id === groupNodeId) {
+          groupNode.animationQueues = [
+            ...groupNode.animationQueues,
+            animationQueue,
+          ];
+        }
+
+        return groupNode;
+      })
+    );
+  };
+
   return (
     <CubedContext.Provider
       value={{
@@ -156,6 +199,8 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         getCubiconNodeById,
         renameCubiconNode,
         removeCubiconNode,
+        makeAnimationNode,
+        addAnimationQueue,
       }}
     >
       {children}
