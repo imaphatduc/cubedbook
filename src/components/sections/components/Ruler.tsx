@@ -18,9 +18,13 @@ export const Ruler = ({
       <div className="border-r border-b border-[#444]"></div>
       <div className="border-b border-[#444]">
         <div
-          className={`grid grid-cols-[repeat(auto-fill,${
-            unitSegmentPixels * frameUnitSegmentsCount
-          }px)] divide-x divide-[#444]`}
+          className="divide-x divide-[#444]"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(auto-fill,${
+              unitSegmentPixels * frameUnitSegmentsCount
+            }px)`,
+          }}
         >
           {[...Array(unitSegmentsCount / frameUnitSegmentsCount)].map(
             (_, i) => (

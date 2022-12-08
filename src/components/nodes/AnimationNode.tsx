@@ -43,7 +43,7 @@ export const AnimationNode = ({
         />
       </div>
       <div className="bg-[#222] border-b border-[#444]">
-        <div className={`flex flex-col gap-2 justify-center py-2`}>
+        <div className="flex flex-col gap-2 justify-center py-2">
           {timeIndices.map((index, i) => (
             <Draggable
               key={i}
@@ -62,7 +62,10 @@ export const AnimationNode = ({
         </div>
 
         <div
-          className={`grid grid-cols-[repeat(auto-fill,${unitSegmentPixels}px)]`}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(auto-fill,${unitSegmentPixels}px)`,
+          }}
         >
           {[...Array(unitSegmentsCount)].map((_, i) => (
             <div
