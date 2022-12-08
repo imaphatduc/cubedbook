@@ -11,7 +11,7 @@ export const Ruler = ({ timeSegments }: Props) => {
           {[...Array(timeSegments)].map((_, i) => (
             <div
               key={i}
-              className="h-6 mt-3 mb-1 grid grid-cols-2 divide-x divide-[#444]"
+              className="h-6 mt-3 grid grid-cols-2 divide-x divide-[#444]"
             >
               <div className="mt-2 grid grid-cols-2 divide-x divide-[#444]">
                 <div className="mt-2">
