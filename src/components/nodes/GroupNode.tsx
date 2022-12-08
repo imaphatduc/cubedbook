@@ -59,22 +59,6 @@ export const GroupNode = ({
           <CtxSubMenu label="Coordinates System">
             <CtxMenuItem label="Axes" />
           </CtxSubMenu>
-          <CtxSubMenu label="Animations">
-            <CtxMenuItem label="Create Shape" />
-            <CtxMenuItem label="Create Vector Shape" />
-            <CtxMenuItem label="Translate" />
-            <CtxMenuItem label="Rotate" />
-            <CtxMenuItem label="Fade In" />
-            <CtxMenuItem label="Fade Out" />
-            <CtxMenuItem label="Draw Grid" />
-            <CtxMenuItem label="Draw Axes" />
-            <CtxMenuItem label="Draw Vector Field" />
-            <CtxMenuItem label="Point To Coordinates" />
-            <CtxMenuItem label="Point Along Graph" />
-            <CtxMenuItem label="Write" />
-            <CtxMenuItem label="Trace" />
-            <CtxMenuItem label="Apply Function" />
-          </CtxSubMenu>
         </PressMenu>
       </div>
 
