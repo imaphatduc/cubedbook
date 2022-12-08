@@ -22,7 +22,7 @@ export const AnimationQueueNode = ({
 
   const keyframes = animationQueue.map(
     (animationNode) =>
-      (startTime + animationNode.animation.duration) / unitSegmentValue
+      (startTime + animationNode.animation.duration / 1000) / unitSegmentValue
   );
 
   const startPixel = startTime * unitSegmentPixels;
