@@ -24,14 +24,17 @@ export interface IAnimationNode<IAnimation> {
   cubiconNodeId: string;
 }
 
-export type IAnimationQueue<IAnimation> = IAnimationNode<IAnimation>[];
+export interface IAnimationQueueNode<IAnimation> {
+  start: number;
+  queues: IAnimationNode<IAnimation>[];
+}
 
 export interface IGroupNode {
   id: string;
   type?: '2d';
   group: Group;
   cubiconNodes: ICubiconNode<Cubicon>[];
-  animationQueues: IAnimationQueue<Animation>[];
+  animationQueueNodes: IAnimationQueueNode<Animation>[];
 }
 
 interface ContextValue {
@@ -58,7 +61,7 @@ interface ContextValue {
   ) => IAnimationNode<IAnimation>;
   addAnimationQueue: <IAnimation extends Animation>(
     groupNodeId: string,
-    animationQueue: IAnimationQueue<IAnimation>
+    animationQueueNode: IAnimationQueueNode<IAnimation>
   ) => void;
 }
 
@@ -78,7 +81,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         type,
         group: new Group(name, scene),
         cubiconNodes: [],
-        animationQueues: [],
+        animationQueueNodes: [],
       };
 
       setGroupNodes([...groupNodes, groupNode]);
@@ -173,14 +176,14 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const addAnimationQueue = <IAnimation extends Animation>(
     groupNodeId: string,
-    animationQueue: IAnimationQueue<IAnimation>
+    animationQueueNode: IAnimationQueueNode<IAnimation>
   ) => {
     setGroupNodes(
       groupNodes.map((groupNode) => {
         if (groupNode.id === groupNodeId) {
-          groupNode.animationQueues = [
-            ...groupNode.animationQueues,
-            animationQueue,
+          groupNode.animationQueueNodes = [
+            ...groupNode.animationQueueNodes,
+            animationQueueNode,
           ];
         }
 

@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { IAnimationQueue } from '../../contexts/CubedContext';
+import { IGroupNode, useCubed } from '../../contexts/CubedContext';
 import { InputField } from '../fields/InputField';
 import { AnimationQueueNode } from './AnimationQueueNode';
 
@@ -8,22 +8,19 @@ interface Props {
   unitSegmentPixels: number;
   unitSegmentValue: number;
   frameSegmentValue: number;
-  groupName: string;
   unitSegmentsCount: number;
-  animationQueues: {
-    start: number;
-    queues: IAnimationQueue<any>[];
-  };
+  groupNode: IGroupNode;
 }
 
 export const AnimationNode = ({
   unitSegmentPixels,
   unitSegmentValue,
   frameSegmentValue,
-  groupName,
   unitSegmentsCount,
-  animationQueues,
+  groupNode,
 }: Props) => {
+  const { addAnimationQueue } = useCubed();
+
   const frameUnitSegmentsCount = frameSegmentValue / unitSegmentValue;
 
   const bounds = {
@@ -35,7 +32,7 @@ export const AnimationNode = ({
     <>
       <div className="bg-[#222] border-r border-b border-[#444]">
         <InputField
-          placeholder={groupName}
+          placeholder={'hello-group'}
           disabled
           style={{
             width: '100%',
@@ -45,15 +42,36 @@ export const AnimationNode = ({
         />
       </div>
 
-      <div className="bg-[#222] border-b border-[#444]">
-        {animationQueues.queues.map((animationQueue) => (
+      <div
+        className="bg-[#222] border-b border-[#444]"
+        onDoubleClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+
+          const x = e.clientX - rect.left;
+
+          const lowerBound = x - (x % unitSegmentPixels);
+          const upperBound = lowerBound + unitSegmentPixels;
+
+          const selectedKeyframe =
+            x - lowerBound < upperBound - x ? lowerBound : upperBound;
+
+          const selectedKeyframeIndex = selectedKeyframe / unitSegmentPixels;
+          const selectedKeyframeValue =
+            selectedKeyframeIndex * unitSegmentValue * 2;
+
+          addAnimationQueue(groupNode.id, {
+            start: selectedKeyframeValue,
+            queues: [],
+          });
+        }}
+      >
+        {groupNode.animationQueueNodes.map((animationQueueNode) => (
           <AnimationQueueNode
             key={uuid()}
             unitSegmentPixels={unitSegmentPixels}
             unitSegmentValue={unitSegmentValue}
             bounds={bounds}
-            start={animationQueues.start}
-            animationQueue={animationQueue}
+            animationQueueNode={animationQueueNode}
           />
         ))}
 

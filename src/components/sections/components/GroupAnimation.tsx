@@ -22,11 +22,7 @@ export const GroupAnimation = ({
       unitSegmentValue={unitSegmentValue}
       frameSegmentValue={frameSegmentValue}
       unitSegmentsCount={unitSegmentsCount}
-      groupName={'hello-group'}
-      animationQueues={{
-        start: groupNode.group.groupElapsed,
-        queues: groupNode.animationQueues,
-      }}
+      groupNode={groupNode}
     />
   );
 };
