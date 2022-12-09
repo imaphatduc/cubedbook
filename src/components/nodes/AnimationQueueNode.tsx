@@ -6,12 +6,15 @@ import { useMenuState } from '@szhsin/react-menu';
 import { IAnimationQueueNode } from '../../contexts/CubedContext';
 import { CtxMenu } from '../menu/CtxMenu';
 import { CtxMenuItem } from '../menu/CtxMenuItem';
+import { NodeSignature } from '../../App';
 
 interface Props {
   unitSegmentPixels: number;
   unitSegmentValue: number;
   bounds: DraggableBounds;
   animationQueueNode: IAnimationQueueNode<any>;
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
 export const AnimationQueueNode = ({
@@ -19,6 +22,8 @@ export const AnimationQueueNode = ({
   unitSegmentValue,
   bounds,
   animationQueueNode,
+  currentNodeSignature,
+  setCurrentNodeSignature,
 }: Props) => {
   const [menuProps, toggleMenu] = useMenuState();
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -91,7 +96,17 @@ export const AnimationQueueNode = ({
         toggleMenu={toggleMenu}
         anchorPoint={anchorPoint}
       >
-        <CtxMenuItem label="Create Shape" />
+        <CtxMenuItem
+          label="Create Shape"
+          onClick={() =>
+            setCurrentNodeSignature({
+              id: '',
+              label: 'CreateShape',
+              type: 'Animation',
+            })
+          }
+        />
+
         <CtxMenuItem label="Create Vector Shape" />
         <CtxMenuItem label="Translate" />
         <CtxMenuItem label="Rotate" />

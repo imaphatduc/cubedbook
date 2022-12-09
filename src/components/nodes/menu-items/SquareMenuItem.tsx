@@ -1,14 +1,18 @@
 import { PLANE_SHAPE_DEFAULT_CONFIG, Square, Vector2 } from 'cubecubed';
+import { NodeSignature } from '../../../App';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
-  setCurrentNodeId: (currentNodeId: string) => void;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
-export const SquareMenuItem = ({ groupNode, setCurrentNodeId }: Props) => {
+export const SquareMenuItem = ({
+  groupNode,
+  setCurrentNodeSignature,
+}: Props) => {
   const { addCubiconNode } = useCubed();
 
   const label = 'Square';
@@ -39,7 +43,10 @@ export const SquareMenuItem = ({ groupNode, setCurrentNodeId }: Props) => {
           square
         );
 
-        setCurrentNodeId(cubiconNode.id);
+        setCurrentNodeSignature({
+          id: cubiconNode.id,
+          type: 'Cubicon',
+        });
       }}
     />
   );

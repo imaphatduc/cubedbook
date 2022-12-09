@@ -10,19 +10,20 @@ import {
 import { CtxMenu } from '../menu/CtxMenu';
 import { CtxMenuItem } from '../menu/CtxMenuItem';
 import { InputField } from '../fields/InputField';
+import { NodeSignature } from '../../App';
 
 interface Props {
   groupNode: IGroupNode;
   cubiconNode: ICubiconNode<any>;
-  currentNodeId: string;
-  setCurrentNodeId: (currentNodeId: string) => void;
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
 export const CubiconNode = ({
   groupNode,
   cubiconNode,
-  currentNodeId,
-  setCurrentNodeId,
+  currentNodeSignature,
+  setCurrentNodeSignature,
 }: Props) => {
   const { renameCubiconNode, removeCubiconNode } = useCubed();
 
@@ -50,7 +51,10 @@ export const CubiconNode = ({
 
     groupNode.group.remove([cubiconNode.cubicon]);
 
-    setCurrentNodeId('');
+    setCurrentNodeSignature({
+      id: '',
+      type: '',
+    });
   };
 
   return (
@@ -60,10 +64,14 @@ export const CubiconNode = ({
     >
       <div
         className={`px-2 rounded-sm ${
-          cubiconNode.id === currentNodeId && 'text-blue-300 font-bold'
+          cubiconNode.id === currentNodeSignature.id &&
+          'text-blue-300 font-bold'
         }`}
         onClick={() => {
-          setCurrentNodeId(cubiconNode.id);
+          setCurrentNodeSignature({
+            id: cubiconNode.id,
+            type: 'Cubicon',
+          });
         }}
       >
         {cubiconNode.name}

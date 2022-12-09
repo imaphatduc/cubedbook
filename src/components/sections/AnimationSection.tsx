@@ -1,9 +1,18 @@
 import { Play } from 'phosphor-react';
+import { NodeSignature } from '../../App';
 import { useCubed } from '../../contexts/CubedContext';
 import { GroupAnimation } from './components/GroupAnimation';
 import { Ruler } from './components/Ruler';
 
-export const AnimationSection = () => {
+interface Props {
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
+}
+
+export const AnimationSection = ({
+  currentNodeSignature,
+  setCurrentNodeSignature,
+}: Props) => {
   const { groupNodes } = useCubed();
 
   const unitSegmentPixels = 25;
@@ -41,6 +50,8 @@ export const AnimationSection = () => {
           unitSegmentValue={unitSegmentValue}
           frameSegmentValue={frameSegmentValue}
           unitSegmentsCount={unitSegmentsCount}
+          currentNodeSignature={currentNodeSignature}
+          setCurrentNodeSignature={setCurrentNodeSignature}
         />
       ))}
     </div>

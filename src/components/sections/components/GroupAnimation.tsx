@@ -1,3 +1,4 @@
+import { NodeSignature } from '../../../App';
 import { IGroupNode } from '../../../contexts/CubedContext';
 import { AnimationNode } from '../../nodes/AnimationNode';
 
@@ -7,6 +8,8 @@ interface Props {
   unitSegmentValue: number;
   frameSegmentValue: number;
   unitSegmentsCount: number;
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
 export const GroupAnimation = ({
@@ -15,6 +18,8 @@ export const GroupAnimation = ({
   unitSegmentValue,
   frameSegmentValue,
   unitSegmentsCount,
+  currentNodeSignature,
+  setCurrentNodeSignature,
 }: Props) => {
   return (
     <AnimationNode
@@ -23,6 +28,8 @@ export const GroupAnimation = ({
       frameSegmentValue={frameSegmentValue}
       unitSegmentsCount={unitSegmentsCount}
       groupNode={groupNode}
+      currentNodeSignature={currentNodeSignature}
+      setCurrentNodeSignature={setCurrentNodeSignature}
     />
   );
 };

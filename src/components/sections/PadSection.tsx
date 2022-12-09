@@ -1,22 +1,26 @@
+import { NodeSignature } from '../../App';
 import { useCubed } from '../../contexts/CubedContext';
-import { getPad } from '../../utils/getPad';
+import { getAnimationPad, getCubiconPad } from '../../utils/getPad';
 
 import SectionHeader from './components/SectionHeader';
 
 interface Props {
-  currentNodeId: string;
+  currentNodeSignature: NodeSignature;
 }
 
-export const PadSection = ({ currentNodeId }: Props) => {
-  const { getCubiconNodeById } = useCubed();
-
-  const cubiconNode = getCubiconNodeById(currentNodeId);
+export const PadSection = ({ currentNodeSignature }: Props) => {
+  const { getCubiconNodeById, getAnimationNodeById } = useCubed();
 
   return (
     <div>
       <SectionHeader header="Editor" />
 
-      {currentNodeId && getPad(cubiconNode)}
+      {currentNodeSignature.id &&
+        currentNodeSignature.type === 'Cubicon' &&
+        getCubiconPad(getCubiconNodeById(currentNodeSignature.id))}
+
+      {currentNodeSignature.type === 'Animation' &&
+        getAnimationPad(currentNodeSignature.label)}
     </div>
   );
 };

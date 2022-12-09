@@ -3,8 +3,19 @@ import { AnimationSection } from './components/sections/AnimationSection';
 import { PadSection } from './components/sections/PadSection';
 import { SceneSection } from './components/sections/SceneSection';
 
+export interface NodeSignature {
+  id: string;
+  label?: string;
+  type: 'Cubicon' | 'Animation' | '';
+}
+
 function App() {
-  const [currentNodeId, setCurrentNodeId] = useState('');
+  const [currentNodeSignature, setCurrentNodeSignature] =
+    useState<NodeSignature>({
+      id: '',
+      label: '',
+      type: '',
+    });
 
   return (
     <div className="App">
@@ -13,8 +24,8 @@ function App() {
           <div className="grid grid-cols-[1fr_2fr]">
             <div className="prose my-2 px-5 text-white border-r-2 border-r-gray-500">
               <SceneSection
-                currentNodeId={currentNodeId}
-                setCurrentNodeId={setCurrentNodeId}
+                currentNodeSignature={currentNodeSignature}
+                setCurrentNodeSignature={setCurrentNodeSignature}
               />
             </div>
             <div
@@ -24,12 +35,15 @@ function App() {
           </div>
 
           <div className="row-span-2 border-t-2 border-t-gray-500 bg-[#111]">
-            <AnimationSection />
+            <AnimationSection
+              currentNodeSignature={currentNodeSignature}
+              setCurrentNodeSignature={setCurrentNodeSignature}
+            />
           </div>
         </div>
 
         <div className="prose my-2 px-5 text-white border-l-2 border-l-gray-500">
-          <PadSection currentNodeId={currentNodeId} />
+          <PadSection currentNodeSignature={currentNodeSignature} />
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { NodeSignature } from '../../App';
 
 import { IGroupNode, useCubed } from '../../contexts/CubedContext';
 import { InputField } from '../fields/InputField';
@@ -10,6 +11,8 @@ interface Props {
   frameSegmentValue: number;
   unitSegmentsCount: number;
   groupNode: IGroupNode;
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
 export const AnimationNode = ({
@@ -18,6 +21,8 @@ export const AnimationNode = ({
   frameSegmentValue,
   unitSegmentsCount,
   groupNode,
+  currentNodeSignature,
+  setCurrentNodeSignature,
 }: Props) => {
   const { addAnimationQueue } = useCubed();
 
@@ -72,6 +77,8 @@ export const AnimationNode = ({
             unitSegmentValue={unitSegmentValue}
             bounds={bounds}
             animationQueueNode={animationQueueNode}
+            currentNodeSignature={currentNodeSignature}
+            setCurrentNodeSignature={setCurrentNodeSignature}
           />
         ))}
 

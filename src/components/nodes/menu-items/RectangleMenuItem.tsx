@@ -1,14 +1,18 @@
 import { PLANE_SHAPE_DEFAULT_CONFIG, Rectangle, Vector2 } from 'cubecubed';
+import { NodeSignature } from '../../../App';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
-  setCurrentNodeId: (currentNodeId: string) => void;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
-export const RectangleMenuItem = ({ groupNode, setCurrentNodeId }: Props) => {
+export const RectangleMenuItem = ({
+  groupNode,
+  setCurrentNodeSignature,
+}: Props) => {
   const { addCubiconNode } = useCubed();
 
   const label = 'Rectangle';
@@ -40,7 +44,10 @@ export const RectangleMenuItem = ({ groupNode, setCurrentNodeId }: Props) => {
           rectangle
         );
 
-        setCurrentNodeId(cubiconNode.id);
+        setCurrentNodeSignature({
+          id: cubiconNode.id,
+          type: 'Cubicon',
+        });
       }}
     />
   );

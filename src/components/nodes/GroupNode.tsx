@@ -10,17 +10,18 @@ import { CubiconNode } from './CubiconNode';
 import { RectangleMenuItem } from './menu-items/RectangleMenuItem';
 import { SquareMenuItem } from './menu-items/SquareMenuItem';
 import { CircleMenuItem } from './menu-items/CircleMenuItem';
+import { NodeSignature } from '../../App';
 
 interface Props {
   groupNode: IGroupNode;
-  currentNodeId: string;
-  setCurrentNodeId: (currentNodeId: string) => void;
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
 export const GroupNode = ({
   groupNode,
-  currentNodeId,
-  setCurrentNodeId,
+  currentNodeSignature,
+  setCurrentNodeSignature,
 }: Props) => {
   return (
     <div className="mb-3">
@@ -41,15 +42,15 @@ export const GroupNode = ({
           <CtxSubMenu label="Geometry">
             <RectangleMenuItem
               groupNode={groupNode}
-              setCurrentNodeId={setCurrentNodeId}
+              setCurrentNodeSignature={setCurrentNodeSignature}
             />
             <SquareMenuItem
               groupNode={groupNode}
-              setCurrentNodeId={setCurrentNodeId}
+              setCurrentNodeSignature={setCurrentNodeSignature}
             />
             <CircleMenuItem
               groupNode={groupNode}
-              setCurrentNodeId={setCurrentNodeId}
+              setCurrentNodeSignature={setCurrentNodeSignature}
             />
 
             <CtxMenuItem label="Line" />
@@ -68,8 +69,8 @@ export const GroupNode = ({
             key={cubiconNode.id}
             groupNode={groupNode}
             cubiconNode={cubiconNode}
-            currentNodeId={currentNodeId}
-            setCurrentNodeId={setCurrentNodeId}
+            currentNodeSignature={currentNodeSignature}
+            setCurrentNodeSignature={setCurrentNodeSignature}
           />
         ))}
       </div>

@@ -1,14 +1,18 @@
 import { Circle, PLANE_SHAPE_DEFAULT_CONFIG, Vector2 } from 'cubecubed';
+import { NodeSignature } from '../../../App';
 
 import { IGroupNode, useCubed } from '../../../contexts/CubedContext';
 import { CtxMenuItem } from '../../menu/CtxMenuItem';
 
 interface Props {
   groupNode: IGroupNode;
-  setCurrentNodeId: (currentNodeId: string) => void;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
-export const CircleMenuItem = ({ groupNode, setCurrentNodeId }: Props) => {
+export const CircleMenuItem = ({
+  groupNode,
+  setCurrentNodeSignature,
+}: Props) => {
   const { addCubiconNode } = useCubed();
 
   const label = 'Circle';
@@ -39,7 +43,10 @@ export const CircleMenuItem = ({ groupNode, setCurrentNodeId }: Props) => {
           circle
         );
 
-        setCurrentNodeId(cubiconNode.id);
+        setCurrentNodeSignature({
+          id: cubiconNode.id,
+          type: 'Cubicon',
+        });
       }}
     />
   );

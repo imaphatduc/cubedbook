@@ -63,6 +63,7 @@ interface ContextValue {
     groupNodeId: string,
     animationQueueNode: IAnimationQueueNode<IAnimation>
   ) => void;
+  getAnimationNodeById: (animationNodeId: string) => IAnimationNode<Animation>;
 }
 
 const CubedContext = createContext<ContextValue>(null);
@@ -192,6 +193,19 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
     );
   };
 
+  const getAnimationNodeById = (animationNodeId: string) => {
+    const animationNode = groupNodes
+      .map((groupNode) =>
+        groupNode.animationQueueNodes.map(
+          (animationQueueNode) => animationQueueNode.queues
+        )
+      )
+      .flat(2)
+      .find((animationNode) => animationNode.id === animationNodeId);
+
+    return animationNode;
+  };
+
   return (
     <CubedContext.Provider
       value={{
@@ -204,6 +218,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
         removeCubiconNode,
         makeAnimationNode,
         addAnimationQueue,
+        getAnimationNodeById,
       }}
     >
       {children}

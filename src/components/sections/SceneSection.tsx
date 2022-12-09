@@ -1,13 +1,17 @@
+import { NodeSignature } from '../../App';
 import { useCubed } from '../../contexts/CubedContext';
 import { GroupNode } from '../nodes/GroupNode';
 import SectionHeader from './components/SectionHeader';
 
 interface Props {
-  currentNodeId: string;
-  setCurrentNodeId: (currentNodeId: string) => void;
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (currentNodeSignature: NodeSignature) => void;
 }
 
-export const SceneSection = ({ currentNodeId, setCurrentNodeId }: Props) => {
+export const SceneSection = ({
+  currentNodeSignature,
+  setCurrentNodeSignature,
+}: Props) => {
   const { groupNodes, addGroupNode } = useCubed();
 
   return (
@@ -30,8 +34,8 @@ export const SceneSection = ({ currentNodeId, setCurrentNodeId }: Props) => {
         <GroupNode
           key={i}
           groupNode={groupNode}
-          currentNodeId={currentNodeId}
-          setCurrentNodeId={setCurrentNodeId}
+          currentNodeSignature={currentNodeSignature}
+          setCurrentNodeSignature={setCurrentNodeSignature}
         />
       ))}
     </div>
