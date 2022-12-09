@@ -11,6 +11,7 @@ import { CtxMenu } from '../menu/CtxMenu';
 import { CtxMenuItem } from '../menu/CtxMenuItem';
 import { InputField } from '../fields/InputField';
 import { NodeSignature } from '../../App';
+import { useDrag } from 'react-dnd';
 
 interface Props {
   groupNode: IGroupNode;
@@ -25,6 +26,14 @@ export const CubiconNode = ({
   currentNodeSignature,
   setCurrentNodeSignature,
 }: Props) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'CubiconNode',
+    item: { cubiconNode },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   const { renameCubiconNode, removeCubiconNode } = useCubed();
 
   const [menuProps, toggleMenu] = useMenuState();
@@ -59,8 +68,12 @@ export const CubiconNode = ({
 
   return (
     <div
+      ref={drag}
       className="hover:text-[#c8d3f5] cursor-pointer"
       onContextMenu={openMenu}
+      style={{
+        opacity: isDragging ? 0.5 : 1,
+      }}
     >
       <div
         className={`px-2 rounded-sm ${

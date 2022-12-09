@@ -1,10 +1,14 @@
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { CubedProvider } from './contexts/CubedContext';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <CubedProvider>
-    <App />
-  </CubedProvider>
+  <DndProvider backend={HTML5Backend}>
+    <CubedProvider>
+      <App />
+    </CubedProvider>
+  </DndProvider>
 );
