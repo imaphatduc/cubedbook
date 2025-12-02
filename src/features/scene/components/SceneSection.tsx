@@ -7,18 +7,26 @@ export const SceneSection = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-3">
         <SectionHeader header="Manuscript" />
 
-        <div className="flex gap-1 text-lg text-[#c8d3f5] font-extrabold">
+        <div className="flex gap-1 text-md text-[#c8d3f5] font-extrabold">
           <button
-            className="rounded-md hover:bg-[#666] p-2"
             onClick={() => addGroupNode("hello-group", "2d")}
+            style={{
+              borderRadius: "calc(infinity * 1px)",
+            }}
           >
             2D
           </button>
 
-          <button className="rounded-md hover:bg-[#666] p-2">3D</button>
+          <button
+            style={{
+              borderRadius: "calc(infinity * 1px)",
+            }}
+          >
+            3D
+          </button>
         </div>
       </div>
 
