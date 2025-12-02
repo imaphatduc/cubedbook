@@ -10,13 +10,19 @@ export const renameCubiconNode = (
   setGroupNodes(
     groupNodes.map((groupNode) => {
       if (groupNode.id === groupNodeId) {
-        groupNode.cubiconNodes = groupNode.cubiconNodes.map((cubiconNode) => {
-          if (cubiconNode.id === cubiconNodeId) {
-            cubiconNode.name = newName;
-          }
+        return {
+          ...groupNode,
+          cubiconNodes: groupNode.cubiconNodes.map((cubiconNode) => {
+            if (cubiconNode.id === cubiconNodeId) {
+              return {
+                ...cubiconNode,
+                name: newName,
+              };
+            }
 
-          return cubiconNode;
-        });
+            return cubiconNode;
+          }),
+        };
       }
 
       return groupNode;

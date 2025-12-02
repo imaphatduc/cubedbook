@@ -120,16 +120,10 @@ export const CubiconNode = ({ groupNode, cubiconNode }: Props) => {
           />
 
           <div className="flex justify-between gap-3">
-            <button
-              type="submit"
-              className="bg-white text-black rounded-sm w-24 hover:bg-gray-200"
-            >
+            <button type="submit" className="text-white">
               Rename
             </button>
-            <button
-              className="bg-white text-black rounded-sm w-24 hover:bg-gray-200"
-              onClick={() => setIsRenaming(false)}
-            >
+            <button className="text-white" onClick={() => setIsRenaming(false)}>
               Close
             </button>
           </div>

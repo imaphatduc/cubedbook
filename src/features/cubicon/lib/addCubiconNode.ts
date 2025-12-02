@@ -21,7 +21,10 @@ export const addCubiconNode = <ICubicon extends Cubicon>(
   setGroupNodes(
     groupNodes.map((groupNode) => {
       if (groupNode.id === groupNodeId) {
-        groupNode.cubiconNodes = [...groupNode.cubiconNodes, cubiconNode];
+        return {
+          ...groupNode,
+          cubiconNodes: [...groupNode.cubiconNodes, cubiconNode],
+        };
       }
 
       return groupNode;

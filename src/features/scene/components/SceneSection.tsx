@@ -1,6 +1,6 @@
-import { useCubed } from '@/contexts';
-import { GroupNode } from '@/features/group';
-import { SectionHeader } from '@/features/section';
+import { useCubed } from "@/contexts";
+import { GroupNode } from "@/features/group";
+import { SectionHeader } from "@/features/section";
 
 export const SceneSection = () => {
   const { groupNodes, addGroupNode } = useCubed();
@@ -13,7 +13,7 @@ export const SceneSection = () => {
         <div className="flex gap-1 text-lg text-[#c8d3f5] font-extrabold">
           <button
             className="rounded-md hover:bg-[#666] p-2"
-            onClick={() => addGroupNode('hello-group', '2d')}
+            onClick={() => addGroupNode("hello-group", "2d")}
           >
             2D
           </button>

@@ -11,10 +11,13 @@ export const addAnimationQueue = <IAnimation extends Animation>(
   setGroupNodes(
     groupNodes.map((groupNode) => {
       if (groupNode.id === groupNodeId) {
-        groupNode.animationQueueNodes = [
-          ...groupNode.animationQueueNodes,
-          animationQueueNode,
-        ];
+        return {
+          ...groupNode,
+          animationQueueNodes: [
+            ...groupNode.animationQueueNodes,
+            animationQueueNode,
+          ],
+        };
       }
 
       return groupNode;

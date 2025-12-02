@@ -1,5 +1,38 @@
 @import "tailwindcss";
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+@theme {
+  --color-cubedpink: #d31dde;
+  --color-cubedpurple: #4935e8;
+  --color-cubedlightpurple: #a61ee8;
+  --color-cubedblue: #560bff;
+  --color-cubedlightblue: #3b59ff;
+  --color-cubeddark: #2e0f52;
+  --animate-fadein: fadeIn 0.1s ease-out;
+  --animate-fadeout: fadeOut 0.15s ease-out forwards;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

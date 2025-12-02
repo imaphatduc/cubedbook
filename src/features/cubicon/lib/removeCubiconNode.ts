@@ -9,9 +9,12 @@ export const removeCubiconNode = (
   setGroupNodes(
     groupNodes.map((groupNode) => {
       if (groupNode.id === groupNodeId) {
-        groupNode.cubiconNodes = groupNode.cubiconNodes.filter(
-          (cubiconNode) => cubiconNode.id !== cubiconNodeId
-        );
+        return {
+          ...groupNode,
+          cubiconNodes: groupNode.cubiconNodes.filter(
+            (cubiconNode) => cubiconNode.id !== cubiconNodeId
+          ),
+        };
       }
 
       return groupNode;

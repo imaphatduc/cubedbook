@@ -1,8 +1,8 @@
 import { SubMenu, type SubMenuProps } from "@szhsin/react-menu";
 import { CaretRight } from "phosphor-react";
 
-import { menuClassName } from "./CtxMenu";
 import { menuItemClassName } from "./CtxMenuItem";
+import { getMenuClassName } from "../lib";
 
 export const CtxSubMenu = (props: SubMenuProps) => {
   return (
@@ -16,9 +16,8 @@ export const CtxSubMenu = (props: SubMenuProps) => {
           </>
         </div>
       }
-      offsetY={-10}
       className="relative"
-      menuClassName={menuClassName}
+      menuClassName={getMenuClassName}
       itemProps={{ className: menuItemClassName }}
     />
   );
