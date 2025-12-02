@@ -20,7 +20,7 @@ export const Ruler = ({
         <div
           className="divide-x divide-[#444]"
           style={{
-            display: 'grid',
+            display: "grid",
             gridTemplateColumns: `repeat(auto-fill,${
               unitSegmentPixels * frameUnitSegmentsCount
             }px)`,
@@ -30,7 +30,7 @@ export const Ruler = ({
             (_, i) => (
               <div
                 key={i}
-                className="h-6 mt-3 grid grid-cols-2 divide-x divide-[#444]"
+                className="h-6 mt-2 grid grid-cols-2 divide-x divide-[#444]"
               >
                 <div className="mt-2 grid grid-cols-2 divide-x divide-[#444]">
                   <div className="mt-2">

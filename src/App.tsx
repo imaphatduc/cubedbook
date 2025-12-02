@@ -1,12 +1,18 @@
-import { Left, Right } from '@/features/main-screen';
+import { Left, Right } from "@/features/main-screen";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 function App() {
   return (
-    <div className="App">
-      <div className="grid grid-cols-[3fr_1fr] bg-[#222] text-white">
-        <Left />
-        <Right />
-      </div>
+    <div className="App h-screen">
+      <PanelGroup direction="horizontal" className="bg-[#222] text-white">
+        <Panel>
+          <Left />
+        </Panel>
+        <PanelResizeHandle />
+        <Panel defaultSize={22}>
+          <Right />
+        </Panel>
+      </PanelGroup>
     </div>
   );
 }

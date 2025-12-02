@@ -1,8 +1,8 @@
-import { AnimationSection } from '@/features/animation';
+import { AnimationSection } from "@/features/animation";
 
 export const BottomLeft = () => {
   return (
-    <div className="row-span-2 border-t-2 border-t-gray-500 bg-[#111]">
+    <div className="border-t-2 border-t-gray-500 bg-[#111] h-full">
       <AnimationSection />
     </div>
   );
