@@ -1,69 +1,78 @@
 import {
   createContext,
-  FC,
-  PropsWithChildren,
+  type FC,
+  type PropsWithChildren,
   useContext,
   useState,
-} from 'react';
+} from "react";
 
-import { Animation, Cubicon, Group, Scene } from 'cubecubed';
+import { Animation, Cubicon, Scene } from "cubecubed";
 
-import { v4 as uuid } from 'uuid';
+import { type NodeSignature } from "@/features/scene";
 
-export interface ICubiconNode<ICubicon> {
-  id: string;
-  name: string;
-  label: string;
-  cubicon: ICubicon;
-}
+import { type IGroupNode, addGroupNode } from "@/features/group";
 
-export interface IAnimationNode<IAnimation> {
-  id: string;
-  label: string;
-  animation: IAnimation;
-  cubiconNodeId: string;
-}
+import {
+  type ICubiconNode,
+  getCubiconNodeById,
+  addCubiconNode,
+  renameCubiconNode,
+  removeCubiconNode,
+} from "@/features/cubicon";
 
-export interface IAnimationQueueNode<IAnimation> {
-  start: number;
-  queues: IAnimationNode<IAnimation>[];
-}
-
-export interface IGroupNode {
-  id: string;
-  type?: '2d';
-  group: Group;
-  cubiconNodes: ICubiconNode<Cubicon>[];
-  animationQueueNodes: IAnimationQueueNode<Animation>[];
-}
+import {
+  type IAnimationNode,
+  type IAnimationQueueNode,
+  getAnimationNodeById,
+  makeAnimationNode,
+  addAnimationQueue,
+} from "@/features/animation";
 
 interface ContextValue {
+  // SCENE
   scene: Scene;
+  currentNodeSignature: NodeSignature;
+  setCurrentNodeSignature: (d: NodeSignature) => void;
+
+  // GROUP
   groupNodes: IGroupNode[];
-  addGroupNode: (name: string, type: '2d' | '3d') => void;
+  addGroupNode: (name: string, type: "2d" | "3d") => void;
+
+  // CUBICON
+  getCubiconNodeById: (
+    cubiconNodeId: string
+  ) => ICubiconNode<Cubicon> | undefined;
+
   addCubiconNode: <ICubicon extends Cubicon>(
     groupNodeId: string,
     name: string,
     label: string,
     cubicon: ICubicon
   ) => ICubiconNode<ICubicon>;
-  getCubiconNodeById: (cubiconNodeId: string) => ICubiconNode<Cubicon>;
+
   renameCubiconNode: (
     groupNodeId: string,
     cubiconNodeId: string,
     newName: string
   ) => void;
+
   removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
+
+  // ANIMATION
+  getAnimationNodeById: (
+    animationNodeId: string
+  ) => IAnimationNode<Animation> | undefined;
+
   makeAnimationNode: <IAnimation extends Animation>(
     label: string,
     cubiconNodeId: string,
     animation: IAnimation
   ) => IAnimationNode<IAnimation>;
+
   addAnimationQueue: <IAnimation extends Animation>(
     groupNodeId: string,
     animationQueueNode: IAnimationQueueNode<IAnimation>
   ) => void;
-  getAnimationNodeById: (animationNodeId: string) => IAnimationNode<Animation>;
 }
 
 const CubedContext = createContext<ContextValue>(null);
@@ -71,154 +80,87 @@ const CubedContext = createContext<ContextValue>(null);
 export const useCubed = () => useContext(CubedContext);
 
 export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
-  const scene = new Scene('simpleScene');
+  const scene = new Scene("simpleScene");
 
   const [groupNodes, setGroupNodes] = useState<IGroupNode[]>([]);
 
-  const addGroupNode = (name: string, type: '2d' | '3d') => {
-    if (type === '2d') {
-      const groupNode: IGroupNode = {
-        id: uuid(),
-        type,
-        group: new Group(name, scene),
-        cubiconNodes: [],
-        animationQueueNodes: [],
-      };
-
-      setGroupNodes([...groupNodes, groupNode]);
-    }
-  };
-
-  const addCubiconNode = <ICubicon extends Cubicon>(
-    groupNodeId: string,
-    name: string,
-    label: string,
-    cubicon: ICubicon
-  ) => {
-    const cubiconNode: ICubiconNode<ICubicon> = {
-      id: uuid(),
-      name,
-      label,
-      cubicon,
-    };
-
-    setGroupNodes(
-      groupNodes.map((groupNode) => {
-        if (groupNode.id === groupNodeId) {
-          groupNode.cubiconNodes = [...groupNode.cubiconNodes, cubiconNode];
-        }
-
-        return groupNode;
-      })
-    );
-
-    return cubiconNode;
-  };
-
-  const getCubiconNodeById = (cubiconNodeId: string) => {
-    const cubiconNode = groupNodes
-      .map((groupNode) => groupNode.cubiconNodes)
-      .flat()
-      .find((cubiconNode) => cubiconNode.id === cubiconNodeId);
-
-    return cubiconNode;
-  };
-
-  const renameCubiconNode = (
-    groupNodeId: string,
-    cubiconNodeId: string,
-    newName: string
-  ) => {
-    setGroupNodes(
-      groupNodes.map((groupNode) => {
-        if (groupNode.id === groupNodeId) {
-          groupNode.cubiconNodes = groupNode.cubiconNodes.map((cubiconNode) => {
-            if (cubiconNode.id === cubiconNodeId) {
-              cubiconNode.name = newName;
-            }
-
-            return cubiconNode;
-          });
-        }
-
-        return groupNode;
-      })
-    );
-  };
-
-  const removeCubiconNode = (groupNodeId: string, cubiconNodeId: string) => {
-    setGroupNodes(
-      groupNodes.map((groupNode) => {
-        if (groupNode.id === groupNodeId) {
-          groupNode.cubiconNodes = groupNode.cubiconNodes.filter(
-            (cubiconNode) => cubiconNode.id !== cubiconNodeId
-          );
-        }
-
-        return groupNode;
-      })
-    );
-  };
-
-  const makeAnimationNode = <IAnimation extends Animation>(
-    label: string,
-    cubiconNodeId: string,
-    animation: IAnimation
-  ) => {
-    const animationNode: IAnimationNode<IAnimation> = {
-      id: uuid(),
-      label,
-      cubiconNodeId,
-      animation,
-    };
-
-    return animationNode;
-  };
-
-  const addAnimationQueue = <IAnimation extends Animation>(
-    groupNodeId: string,
-    animationQueueNode: IAnimationQueueNode<IAnimation>
-  ) => {
-    setGroupNodes(
-      groupNodes.map((groupNode) => {
-        if (groupNode.id === groupNodeId) {
-          groupNode.animationQueueNodes = [
-            ...groupNode.animationQueueNodes,
-            animationQueueNode,
-          ];
-        }
-
-        return groupNode;
-      })
-    );
-  };
-
-  const getAnimationNodeById = (animationNodeId: string) => {
-    const animationNode = groupNodes
-      .map((groupNode) =>
-        groupNode.animationQueueNodes.map(
-          (animationQueueNode) => animationQueueNode.queues
-        )
-      )
-      .flat(2)
-      .find((animationNode) => animationNode.id === animationNodeId);
-
-    return animationNode;
-  };
+  const [currentNodeSignature, setCurrentNodeSignature] =
+    useState<NodeSignature>({
+      id: "",
+      label: "",
+      type: "",
+    });
 
   return (
     <CubedContext.Provider
       value={{
         scene,
+        currentNodeSignature,
+        setCurrentNodeSignature,
+
         groupNodes,
-        addGroupNode,
-        addCubiconNode,
-        getCubiconNodeById,
-        renameCubiconNode,
-        removeCubiconNode,
-        makeAnimationNode,
-        addAnimationQueue,
-        getAnimationNodeById,
+
+        addGroupNode: (name: string, type: "2d" | "3d") =>
+          addGroupNode(name, type, scene, groupNodes, setGroupNodes),
+
+        getCubiconNodeById: (cubiconNodeId: string) =>
+          getCubiconNodeById(cubiconNodeId, groupNodes),
+
+        addCubiconNode: <ICubicon extends Cubicon>(
+          groupNodeId: string,
+          name: string,
+          label: string,
+          cubicon: ICubicon
+        ) =>
+          addCubiconNode(
+            groupNodeId,
+            name,
+            label,
+            cubicon,
+            groupNodes,
+            setGroupNodes
+          ),
+
+        renameCubiconNode: (
+          groupNodeId: string,
+          cubiconNodeId: string,
+          newName: string
+        ) =>
+          renameCubiconNode(
+            groupNodeId,
+            cubiconNodeId,
+            newName,
+            groupNodes,
+            setGroupNodes
+          ),
+
+        removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) =>
+          removeCubiconNode(
+            groupNodeId,
+            cubiconNodeId,
+            groupNodes,
+            setGroupNodes
+          ),
+
+        makeAnimationNode: <IAnimation extends Animation>(
+          label: string,
+          cubiconNodeId: string,
+          animation: IAnimation
+        ) => makeAnimationNode(label, cubiconNodeId, animation),
+
+        getAnimationNodeById: (animationNodeId: string) =>
+          getAnimationNodeById(animationNodeId, groupNodes),
+
+        addAnimationQueue: <IAnimation extends Animation>(
+          groupNodeId: string,
+          animationQueueNode: IAnimationQueueNode<IAnimation>
+        ) =>
+          addAnimationQueue(
+            groupNodeId,
+            animationQueueNode,
+            groupNodes,
+            setGroupNodes
+          ),
       }}
     >
       {children}

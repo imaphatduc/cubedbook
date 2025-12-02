@@ -1,14 +1,13 @@
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { CubedProvider } from './contexts/CubedContext';
-import './index.css';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { CubedProvider } from "./contexts";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <DndProvider backend={HTML5Backend}>
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
     <CubedProvider>
       <App />
     </CubedProvider>
-  </DndProvider>
+  </StrictMode>
 );
