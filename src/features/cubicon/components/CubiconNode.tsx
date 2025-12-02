@@ -1,13 +1,11 @@
-import { type MouseEvent, useRef, useState } from "react";
+import { type MouseEvent, useState } from "react";
 import { useMenuState } from "@szhsin/react-menu";
-import Modal from "react-modal";
 import { useDrag } from "react-dnd";
 
 import { useCubed } from "@/contexts";
 import { type IGroupNode } from "@/features/group";
 import { type ICubiconNode } from "../types";
-import { CtxMenu, CtxMenuItem } from "@/features/menu";
-import { InputField } from "@/features/input-field";
+import { CubiconActionMenu } from "./CubiconActionMenu";
 
 interface Props {
   groupNode: IGroupNode;
@@ -23,43 +21,16 @@ export const CubiconNode = ({ groupNode, cubiconNode }: Props) => {
     }),
   }));
 
-  const {
-    currentNodeSignature,
-    setCurrentNodeSignature,
-    renameCubiconNode,
-    removeCubiconNode,
-  } = useCubed();
+  const { currentNodeSignature, setCurrentNodeSignature } = useCubed();
 
   const [menuProps, toggleMenu] = useMenuState();
+
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
-
-  const [isRenaming, setIsRenaming] = useState(false);
-
-  const nameRef = useRef<HTMLInputElement>(null);
 
   const openMenu = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     toggleMenu(true);
     setAnchorPoint({ x: e.clientX, y: e.clientY });
-  };
-
-  const renameNode = () => {
-    if (nameRef.current) {
-      setIsRenaming(false);
-
-      renameCubiconNode(groupNode.id, cubiconNode.id, nameRef.current.value);
-    }
-  };
-
-  const removeNode = () => {
-    removeCubiconNode(groupNode.id, cubiconNode.id);
-
-    groupNode.group.remove([cubiconNode.cubicon]);
-
-    setCurrentNodeSignature({
-      id: "",
-      type: "",
-    });
   };
 
   return (
@@ -86,49 +57,13 @@ export const CubiconNode = ({ groupNode, cubiconNode }: Props) => {
         {cubiconNode.name}
       </div>
 
-      <CtxMenu
+      <CubiconActionMenu
         menuProps={menuProps}
         toggleMenu={toggleMenu}
         anchorPoint={anchorPoint}
-      >
-        <CtxMenuItem
-          label="Rename"
-          onClickCapture={() => setIsRenaming(true)}
-        />
-        <CtxMenuItem label="Remove" onClickCapture={removeNode} />
-      </CtxMenu>
-
-      <Modal
-        isOpen={isRenaming}
-        onRequestClose={() => setIsRenaming(false)}
-        className="w-fit h-fit mx-auto py-12"
-        style={{
-          overlay: {
-            backgroundColor: "rgba(0,0,0,0.8)",
-          },
-        }}
-      >
-        <form
-          className="flex flex-col items-center gap-3"
-          onSubmit={renameNode}
-        >
-          <InputField
-            ref={nameRef}
-            defaultValue={cubiconNode.name}
-            autoFocus
-            style={{ backgroundColor: "#fff", color: "#000" }}
-          />
-
-          <div className="flex justify-between gap-3">
-            <button type="submit" className="text-white">
-              Rename
-            </button>
-            <button className="text-white" onClick={() => setIsRenaming(false)}>
-              Close
-            </button>
-          </div>
-        </form>
-      </Modal>
+        groupNode={groupNode}
+        cubiconNode={cubiconNode}
+      />
     </div>
   );
 };

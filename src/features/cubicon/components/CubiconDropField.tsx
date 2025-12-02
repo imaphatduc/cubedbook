@@ -7,7 +7,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const CubiconDropField = ({ onDrop, ...props }: Props) => {
-  const [collected, drop] = useDrop<{ cubiconNode: ICubiconNode<any> }>(() => ({
+  const [, drop] = useDrop<{ cubiconNode: ICubiconNode<any> }>(() => ({
     accept: "CubiconNode",
     drop: onDrop,
   }));
@@ -17,7 +17,7 @@ export const CubiconDropField = ({ onDrop, ...props }: Props) => {
       {...props}
       disabled
       ref={drop}
-      className="max-w-[10rem] border-sm bg-[#0c0c0c] px-2 focus:outline-none"
+      className="max-w-40 border-sm bg-[#0c0c0c] px-2 focus:outline-none"
     />
   );
 };

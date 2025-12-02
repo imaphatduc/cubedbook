@@ -12,38 +12,35 @@ export const RectangleMenuItem = ({ groupNode }: Props) => {
 
   const label = "Rectangle";
 
-  return (
-    <CtxMenuItem
-      label={label}
-      onClick={() => {
-        const rectangle = new Rectangle({
-          // @ts-ignore
-          group: groupNode.group,
-          position: new Vector2(0, 0),
-          width: 3,
-          height: 2,
-          CONFIG: PLANE_SHAPE_DEFAULT_CONFIG,
-        }).render();
+  const renderRectangle = () => {
+    const rectangle = new Rectangle({
+      // @ts-ignore
+      group: groupNode.group,
+      position: new Vector2(0, 0),
+      width: 3,
+      height: 2,
+      CONFIG: PLANE_SHAPE_DEFAULT_CONFIG,
+    }).render();
 
-        const name = `${label.toLowerCase()}_${
-          groupNode.cubiconNodes.filter(
-            (node) => node.name.split("_")[0] === label.toLowerCase()
-          ).length
-        }`;
+    const name = `${label.toLowerCase()}_${
+      groupNode.cubiconNodes.filter(
+        (node) => node.name.split("_")[0] === label.toLowerCase()
+      ).length
+    }`;
 
-        // @ts-ignore
-        const cubiconNode = addCubiconNode<Rectangle>(
-          groupNode.id,
-          name,
-          label,
-          rectangle
-        );
+    // @ts-ignore
+    const cubiconNode = addCubiconNode<Rectangle>(
+      groupNode.id,
+      name,
+      label,
+      rectangle
+    );
 
-        setCurrentNodeSignature({
-          id: cubiconNode.id,
-          type: "Cubicon",
-        });
-      }}
-    />
-  );
+    setCurrentNodeSignature({
+      id: cubiconNode.id,
+      type: "Cubicon",
+    });
+  };
+
+  return <CtxMenuItem label={label} onClick={renderRectangle} />;
 };
