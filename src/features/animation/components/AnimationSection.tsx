@@ -6,12 +6,10 @@ import { AnimationNode } from "./AnimationNode";
 export const AnimationSection = () => {
   const { groupNodes } = useCubed();
 
-  const unitSegmentPixels = 25;
-
-  const unitSegmentValue = 0.5;
-  const frameSegmentValue = 2;
-
-  const unitSegmentsCount = 100;
+  const unitPixels = 25;
+  const unitsCount = 100;
+  const unitValue = 0.5;
+  const unitsInASegment = 4;
 
   return (
     <>
@@ -32,18 +30,17 @@ export const AnimationSection = () => {
         </div>
         <div className="overflow-y-hidden overflow-x-scroll">
           <Ruler
-            unitSegmentPixels={unitSegmentPixels}
-            unitSegmentValue={unitSegmentValue}
-            frameSegmentValue={frameSegmentValue}
-            unitSegmentsCount={unitSegmentsCount}
+            unitPixels={unitPixels}
+            unitsCount={unitsCount}
+            unitsInASegment={unitsInASegment}
           />
           {groupNodes.map((groupNode) => (
             <AnimationNode
               key={groupNode.id}
-              unitSegmentPixels={unitSegmentPixels}
-              unitSegmentValue={unitSegmentValue}
-              frameSegmentValue={frameSegmentValue}
-              unitSegmentsCount={unitSegmentsCount}
+              unitPixels={unitPixels}
+              unitsCount={unitsCount}
+              unitValue={unitValue}
+              unitsInASegment={unitsInASegment}
               groupNode={groupNode}
             />
           ))}

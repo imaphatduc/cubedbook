@@ -1,29 +1,23 @@
 interface Props {
-  unitSegmentPixels: number;
-  unitSegmentValue: number;
-  frameSegmentValue: number;
-  unitSegmentsCount: number;
+  unitPixels: number;
+  unitsCount: number;
+  unitsInASegment: number;
 }
 
-export const Ruler = ({
-  unitSegmentPixels,
-  unitSegmentValue,
-  frameSegmentValue,
-  unitSegmentsCount,
-}: Props) => {
-  const frameUnitSegmentsCount = frameSegmentValue / unitSegmentValue;
+export const Ruler = ({ unitPixels, unitsCount, unitsInASegment }: Props) => {
+  const segmentsCount = unitsCount / unitsInASegment;
 
   return (
     <div
       className="divide-x divide-[#444] border-b border-[#444] w-fit"
       style={{
         display: "grid",
-        gridTemplateColumns: `repeat(${Math.floor(
-          unitSegmentsCount / frameUnitSegmentsCount
-        )},${unitSegmentPixels * frameUnitSegmentsCount}px)`,
+        gridTemplateColumns: `repeat(${Math.floor(segmentsCount)}, ${
+          unitPixels * unitsInASegment
+        }px)`,
       }}
     >
-      {[...Array(unitSegmentsCount / frameUnitSegmentsCount)].map((_, i) => (
+      {[...Array(segmentsCount)].map((_, i) => (
         <div
           key={i}
           className="h-6 mt-2 grid grid-cols-2 divide-x divide-[#444]"

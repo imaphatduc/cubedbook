@@ -1,4 +1,4 @@
-import { type MouseEvent, useState } from "react";
+import { type MouseEvent, useRef, useState } from "react";
 import Draggable, { type DraggableBounds } from "react-draggable";
 import { Diamond } from "phosphor-react";
 import { useMenuState } from "@szhsin/react-menu";
@@ -8,15 +8,15 @@ import { CtxMenu, CtxMenuItem } from "@/features/menu";
 import { useCubed } from "@/contexts";
 
 interface Props {
-  unitSegmentPixels: number;
-  unitSegmentValue: number;
+  unitPixels: number;
+  unitValue: number;
   bounds: DraggableBounds;
   animationQueueNode: IAnimationQueueNode<any>;
 }
 
 export const AnimationQueueNode = ({
-  unitSegmentPixels,
-  unitSegmentValue,
+  unitPixels,
+  unitValue,
   bounds,
   animationQueueNode,
 }: Props) => {
@@ -33,32 +33,31 @@ export const AnimationQueueNode = ({
 
   const [startTime, setStartTime] = useState(animationQueueNode.start);
 
-  const keyframes = animationQueueNode.queues.map(
-    (animationNode) =>
-      (startTime + animationNode.animation.duration / 1000) / unitSegmentValue
+  const keyframes = animationQueueNode.animations.map(
+    (animationNode) => startTime + animationNode.animation.duration
   );
 
-  const startPixel = startTime * unitSegmentPixels;
-
   const diamondWidth = 16;
+
+  const nodeRef = useRef<HTMLDivElement>(null);
+
+  const startPixel = (startTime / 1000 / unitValue) * unitPixels;
 
   return (
     <div className="flex flex-col gap-2 justify-center py-2">
       <Draggable
+        nodeRef={nodeRef}
         axis="x"
-        defaultPosition={{
-          x: startPixel,
-          y: 0,
-        }}
-        grid={[unitSegmentPixels, 0]}
+        defaultPosition={{ x: startPixel, y: 0 }}
         bounds={bounds}
         onDrag={(_, { x }) => {
-          setStartTime(x / unitSegmentPixels);
+          setStartTime(x / unitPixels);
 
           // TODO: set `end` properties of `animationQueue` animations to `startTime`
         }}
       >
         <Diamond
+          ref={nodeRef}
           size={diamondWidth}
           weight="fill"
           className="text-cubedpink"
@@ -72,12 +71,13 @@ export const AnimationQueueNode = ({
       {keyframes.map((keyframe, i) => (
         <Draggable
           key={i}
+          nodeRef={nodeRef}
           axis="x"
-          defaultPosition={{ x: keyframe * unitSegmentPixels, y: 0 }}
-          grid={[unitSegmentPixels, 0]}
+          defaultPosition={{ x: (keyframe / unitValue) * unitPixels, y: 0 }}
           bounds={{ ...bounds, left: startPixel }}
         >
           <Diamond
+            ref={nodeRef}
             size={diamondWidth}
             weight="fill"
             className="text-cubedlightblue"

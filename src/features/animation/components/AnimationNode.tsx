@@ -4,27 +4,25 @@ import { type IGroupNode } from "@/features/group";
 import { AnimationQueueNode } from "./AnimationQueueNode";
 
 interface Props {
-  unitSegmentPixels: number;
-  unitSegmentValue: number;
-  frameSegmentValue: number;
-  unitSegmentsCount: number;
+  unitPixels: number;
+  unitsCount: number;
+  unitValue: number;
+  unitsInASegment: number;
   groupNode: IGroupNode;
 }
 
 export const AnimationNode = ({
-  unitSegmentPixels,
-  unitSegmentValue,
-  frameSegmentValue,
-  unitSegmentsCount,
+  unitPixels,
+  unitsCount,
+  unitValue,
+  unitsInASegment,
   groupNode,
 }: Props) => {
   const { addAnimationQueue } = useCubed();
 
-  const frameUnitSegmentsCount = frameSegmentValue / unitSegmentValue;
-
   const bounds = {
     left: 0,
-    right: unitSegmentsCount * unitSegmentPixels,
+    right: unitsCount * unitPixels,
   };
 
   return (
@@ -35,27 +33,27 @@ export const AnimationNode = ({
 
         const x = e.clientX - rect.left;
 
-        const lowerBound = x - (x % unitSegmentPixels);
-        const upperBound = lowerBound + unitSegmentPixels;
+        const lowerBound = x - (x % unitPixels);
+        const upperBound = lowerBound + unitPixels;
 
-        const selectedKeyframe =
+        const selectedUnitInPixels =
           x - lowerBound < upperBound - x ? lowerBound : upperBound;
 
-        const selectedKeyframeIndex = selectedKeyframe / unitSegmentPixels;
-        const selectedKeyframeValue =
-          selectedKeyframeIndex * unitSegmentValue * 2;
+        const selectedUnit = selectedUnitInPixels / unitPixels;
+
+        const selectedKeyframe = selectedUnit * unitValue * 1000;
 
         addAnimationQueue(groupNode.id, {
-          start: selectedKeyframeValue,
-          queues: [],
+          start: selectedKeyframe,
+          animations: [],
         });
       }}
     >
       {groupNode.animationQueueNodes.map((animationQueueNode) => (
         <AnimationQueueNode
           key={uuid()}
-          unitSegmentPixels={unitSegmentPixels}
-          unitSegmentValue={unitSegmentValue}
+          unitPixels={unitPixels}
+          unitValue={unitValue}
           bounds={bounds}
           animationQueueNode={animationQueueNode}
         />
@@ -64,14 +62,14 @@ export const AnimationNode = ({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${unitSegmentsCount}, ${unitSegmentPixels}px)`,
+          gridTemplateColumns: `repeat(${unitsCount}, ${unitPixels}px)`,
         }}
       >
-        {[...Array(unitSegmentsCount)].map((_, i) => (
+        {[...Array(unitsCount)].map((_, i) => (
           <div
             key={i}
             className={`py-2 ${
-              (i + 1) % frameUnitSegmentsCount === 0 && "border-r border-[#444]"
+              (i + 1) % unitsInASegment === 0 && "border-r border-[#444]"
             }`}
           ></div>
         ))}
