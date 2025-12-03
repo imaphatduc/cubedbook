@@ -7,6 +7,7 @@ import Draggable, {
 import type { IAnimationNode } from "../types";
 import { useCubed } from "@/contexts";
 import { getKeyframeFromPixels } from "../lib";
+import { clone } from "@/lib";
 
 interface Props {
   groupNodeId: string;
@@ -37,11 +38,12 @@ export const AnimationKeyframe = ({
   const onDrag: DraggableEventHandler = (_, { x }) => {
     const keyframe = getKeyframeFromPixels(x, unitPixels, unitValue);
 
+    const updatedAnimation = clone(animationNode.animation);
+
+    updatedAnimation.duration = keyframe - startTime;
+
     updateAnimationNode(groupNodeId, animationQueueNodeId, animationNode.id, {
-      animation: {
-        ...animationNode.animation,
-        duration: keyframe - startTime,
-      },
+      animation: updatedAnimation,
     });
   };
 

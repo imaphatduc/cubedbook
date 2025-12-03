@@ -17,7 +17,7 @@ export const Cubecubed = memo(() => {
     });
 
     setScene(reactiveScene);
-  }, []);
+  }, [setScene]);
 
   return (
     <div

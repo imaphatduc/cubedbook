@@ -6,6 +6,7 @@ import { PadLayout, PadOptionLayout } from "@/features/pad";
 import { Animation, CreateShape } from "cubecubed";
 import type { IAnimationNode } from "../types";
 import { useCubed } from "@/contexts";
+import { clone } from "@/lib";
 
 interface Props {
   node: IAnimationNode<Animation>;
@@ -31,30 +32,33 @@ export const CreateShapePad = ({ node }: Props) => {
     }: {
       cubiconNode: ICubiconNode<any>;
     }) => {
+      const newAnimation = new CreateShape({
+        cubicon: droppedCubiconNode.cubicon,
+        duration: node.animation?.duration ?? defaultDuration,
+      });
+
       updateAnimationNode(
         currentNodeSignature.groupNodeId,
         currentNodeSignature.animationQueueNodeId,
         node.id,
         {
           cubiconNodeId: droppedCubiconNode.id,
-          animation: new CreateShape({
-            cubicon: droppedCubiconNode.cubicon,
-            duration: node.animation?.duration ?? defaultDuration,
-          }),
+          animation: newAnimation,
         }
       );
     };
 
     const updateDuration = (e: ChangeEvent<HTMLInputElement>) => {
+      const updatedAnimation = clone(node.animation);
+
+      updatedAnimation.duration = parseInt(e.target.value);
+
       updateAnimationNode(
         currentNodeSignature.groupNodeId,
         currentNodeSignature.animationQueueNodeId,
         node.id,
         {
-          animation: {
-            ...node.animation,
-            duration: parseInt(e.target.value),
-          },
+          animation: updatedAnimation,
         }
       );
     };

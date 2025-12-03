@@ -28,6 +28,7 @@ import {
   getAnimationNodeById,
   addAnimationNodeToQueue,
   updateAnimationNode,
+  getAnimationQueueNodeById,
 } from "@/features/animation";
 
 interface ContextValue {
@@ -62,6 +63,10 @@ interface ContextValue {
   removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
 
   // ANIMATION QUEUE
+  getAnimationQueueNodeById: (
+    animationQueueNodeId: string
+  ) => IAnimationQueueNode<Animation> | undefined;
+
   addAnimationQueue: (groupNodeId: string, startTime: number) => void;
 
   updateAnimationQueueNode: (
@@ -152,6 +157,9 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
           ),
 
         // ANIMATION QUEUE
+        getAnimationQueueNodeById: (animationQueueNodeId) =>
+          getAnimationQueueNodeById(animationQueueNodeId, groupNodes),
+
         addAnimationQueue: (groupNodeId, startTime) =>
           addAnimationQueue(groupNodeId, startTime, groupNodes, setGroupNodes),
 
