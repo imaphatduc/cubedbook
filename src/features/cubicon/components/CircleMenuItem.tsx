@@ -14,7 +14,7 @@ export const CircleMenuItem = ({ groupNode }: Props) => {
 
   const renderCircle = () => {
     const circle = new Circle({
-      // @ts-ignore
+      // @ts-expect-error
       group: groupNode.group,
       position: new Vector2(0, 0),
       radius: 2,
@@ -27,7 +27,7 @@ export const CircleMenuItem = ({ groupNode }: Props) => {
       ).length
     }`;
 
-    // @ts-ignore
+    // @ts-expect-error
     const cubiconNode = addCubiconNode<Circle>(
       groupNode.id,
       name,

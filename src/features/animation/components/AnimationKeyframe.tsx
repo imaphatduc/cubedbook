@@ -35,16 +35,19 @@ export const AnimationKeyframe = ({
       bounds={bounds}
       onDrag={onDrag}
     >
-      <Diamond
-        ref={nodeRef}
-        size={diamondWidth}
-        weight="fill"
-        className={type === "queue" ? "text-cubedpink" : "text-cubedlightblue"}
-        style={{
-          marginLeft: `-${diamondWidth / 2}px`,
-        }}
-        onContextMenu={type === "queue" ? openMenu : () => {}}
-      />
+      <div ref={nodeRef}>
+        <Diamond
+          size={diamondWidth}
+          weight="fill"
+          className={
+            type === "queue" ? "text-cubedpink" : "text-cubedlightblue"
+          }
+          style={{
+            marginLeft: `-${diamondWidth / 2}px`,
+          }}
+          onContextMenu={type === "queue" ? openMenu : () => {}}
+        />
+      </div>
     </Draggable>
   );
 };

@@ -23,7 +23,7 @@ export const RectanglePad = ({
     CONFIG: { fillColor, fillOpacity, strokeColor, strokeWidth },
   } = rectangle;
 
-  // @ts-ignore
+  // @ts-expect-error
   const position = rectangle.position as Vector2;
 
   const positionXRef = useRef<HTMLInputElement>(null);
@@ -41,7 +41,7 @@ export const RectanglePad = ({
     e.preventDefault();
 
     if (positionXRef.current && positionYRef.current) {
-      // @ts-ignore
+      // @ts-expect-error
       rectangle.position = new Vector2(
         parseInt(positionXRef.current.value),
         parseInt(positionYRef.current.value)

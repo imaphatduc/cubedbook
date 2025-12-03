@@ -88,7 +88,7 @@ interface ContextValue {
   ) => void;
 }
 
-const CubedContext = createContext<ContextValue>(null);
+const CubedContext = createContext<ContextValue>({} as ContextValue);
 
 export const useCubed = () => useContext(CubedContext);
 

@@ -20,7 +20,7 @@ export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
     CONFIG: { fillColor, fillOpacity, strokeColor, strokeWidth },
   } = circle;
 
-  // @ts-ignore
+  // @ts-expect-error
   const position = circle.position as Vector2;
 
   const positionXRef = useRef<HTMLInputElement>(null);
@@ -37,7 +37,7 @@ export const CirclePad = ({ node: { id, name, cubicon: circle } }: Props) => {
     e.preventDefault();
 
     if (positionXRef.current && positionYRef.current) {
-      // @ts-ignore
+      // @ts-expect-error
       circle.position = new Vector2(
         parseInt(positionXRef.current.value),
         parseInt(positionYRef.current.value)

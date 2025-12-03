@@ -20,7 +20,7 @@ export const SquarePad = ({ node: { id, name, cubicon: square } }: Props) => {
     CONFIG: { fillColor, fillOpacity, strokeColor, strokeWidth },
   } = square;
 
-  // @ts-ignore
+  // @ts-expect-error
   const position = square.position as Vector2;
 
   const positionXRef = useRef<HTMLInputElement>(null);
@@ -37,7 +37,7 @@ export const SquarePad = ({ node: { id, name, cubicon: square } }: Props) => {
     e.preventDefault();
 
     if (positionXRef.current && positionYRef.current) {
-      // @ts-ignore
+      // @ts-expect-error
       square.position = new Vector2(
         parseInt(positionXRef.current.value),
         parseInt(positionYRef.current.value)

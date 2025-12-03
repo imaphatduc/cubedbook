@@ -14,7 +14,7 @@ export const RectangleMenuItem = ({ groupNode }: Props) => {
 
   const renderRectangle = () => {
     const rectangle = new Rectangle({
-      // @ts-ignore
+      // @ts-expect-error
       group: groupNode.group,
       position: new Vector2(0, 0),
       width: 3,
@@ -28,7 +28,7 @@ export const RectangleMenuItem = ({ groupNode }: Props) => {
       ).length
     }`;
 
-    // @ts-ignore
+    // @ts-expect-error
     const cubiconNode = addCubiconNode<Rectangle>(
       groupNode.id,
       name,

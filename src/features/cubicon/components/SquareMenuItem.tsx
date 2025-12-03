@@ -14,7 +14,7 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
 
   const renderSquare = () => {
     const square = new Square({
-      // @ts-ignore
+      // @ts-expect-error
       group: groupNode.group,
       position: new Vector2(0, 0),
       sideLength: 2,
@@ -27,7 +27,7 @@ export const SquareMenuItem = ({ groupNode }: Props) => {
       ).length
     }`;
 
-    // @ts-ignore
+    // @ts-expect-error
     const cubiconNode = addCubiconNode<Square>(
       groupNode.id,
       name,

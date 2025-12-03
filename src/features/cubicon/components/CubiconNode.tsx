@@ -1,4 +1,4 @@
-import { type MouseEvent, useState } from "react";
+import { type MouseEvent, type Ref, useState } from "react";
 import { useMenuState } from "@szhsin/react-menu";
 import { useDrag } from "react-dnd";
 
@@ -35,7 +35,7 @@ export const CubiconNode = ({ groupNode, cubiconNode }: Props) => {
 
   return (
     <div
-      ref={drag}
+      ref={drag as unknown as Ref<HTMLDivElement>}
       className="hover:text-[#c8d3f5] cursor-pointer"
       onContextMenu={openMenu}
       style={{

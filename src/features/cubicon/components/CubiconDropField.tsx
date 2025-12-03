@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes } from "react";
+import { type InputHTMLAttributes, type Ref } from "react";
 import { useDrop } from "react-dnd";
 import { type ICubiconNode } from "../types";
 
@@ -13,11 +13,12 @@ export const CubiconDropField = ({ onDrop, ...props }: Props) => {
   }));
 
   return (
-    <input
-      {...props}
-      disabled
-      ref={drop}
-      className="max-w-40 border-sm bg-[#0c0c0c] px-2 focus:outline-none"
-    />
+    <div ref={drop as unknown as Ref<HTMLDivElement>}>
+      <input
+        {...props}
+        disabled
+        className="max-w-40 border-sm bg-[#0c0c0c] px-2 focus:outline-none"
+      />
+    </div>
   );
 };
