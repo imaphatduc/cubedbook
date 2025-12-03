@@ -20,7 +20,7 @@ export const AnimationSection = () => {
           <div></div>
         </div>
 
-        <div className="overflow-y-hidden overflow-x-scroll">
+        <div className="overflow-y-scroll overflow-x-scroll">
           <Ruler
             unitPixels={unitPixels}
             unitsCount={unitsCount}

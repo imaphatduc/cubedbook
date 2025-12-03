@@ -21,10 +21,12 @@ import {
 } from "@/features/cubicon";
 
 import {
+  type IAnimationQueueNode,
   type IAnimationNode,
+  addAnimationQueue,
+  updateAnimationQueueNode,
   getAnimationNodeById,
   addAnimationNodeToQueue,
-  addAnimationQueue,
   updateAnimationNode,
 } from "@/features/animation";
 
@@ -58,9 +60,16 @@ interface ContextValue {
 
   removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
 
-  // ANIMATION
+  // ANIMATION QUEUE
   addAnimationQueue: (groupNodeId: string, startTime: number) => void;
 
+  updateAnimationQueueNode: (
+    groupNodeId: string,
+    animationQueueId: string,
+    data: Partial<IAnimationQueueNode<any>>
+  ) => void;
+
+  // ANIMATION
   getAnimationNodeById: (
     animationNodeId: string
   ) => IAnimationNode<Animation> | undefined;
@@ -97,14 +106,18 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <CubedContext.Provider
       value={{
+        // SCENE
         scene,
         currentNodeSignature,
         setCurrentNodeSignature,
 
+        // GROUP
         groupNodes,
 
         addGroupNode: (name, type) =>
           addGroupNode(name, type, scene, groupNodes, setGroupNodes),
+
+        // CUBICON
 
         getCubiconNodeById: (cubiconNodeId) =>
           getCubiconNodeById(cubiconNodeId, groupNodes),
@@ -136,9 +149,20 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
             setGroupNodes
           ),
 
+        // ANIMATION QUEUE
         addAnimationQueue: (groupNodeId, startTime) =>
           addAnimationQueue(groupNodeId, startTime, groupNodes, setGroupNodes),
 
+        updateAnimationQueueNode: (groupNodeId, animationQueueId, data) =>
+          updateAnimationQueueNode(
+            groupNodeId,
+            animationQueueId,
+            data,
+            groupNodes,
+            setGroupNodes
+          ),
+
+        // ANIMATION
         getAnimationNodeById: (animationNodeId) =>
           getAnimationNodeById(animationNodeId, groupNodes),
 

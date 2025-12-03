@@ -11,8 +11,6 @@ export const PlayButton = () => {
       .sort((a, b) => a.startTime - b.startTime);
 
     animationQueues.forEach((queue) => {
-      console.log(queue);
-
       scene.play(
         queue.animationNodes
           .map((node) => {

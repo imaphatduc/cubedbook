@@ -1,4 +1,4 @@
-import { type FormEvent, useRef } from "react";
+import { type ChangeEvent, type FormEvent } from "react";
 
 import { InputField } from "@/features/input-field";
 import { CubiconDropField, type ICubiconNode } from "@/features/cubicon";
@@ -15,32 +15,15 @@ export const CreateShapePad = ({ node }: Props) => {
   const { currentNodeSignature, getCubiconNodeById, updateAnimationNode } =
     useCubed();
 
-  const durationRef = useRef<HTMLInputElement>(null);
+  const defaultDuration = 1000;
 
   const cubiconNode = node.cubiconNodeId
     ? getCubiconNodeById(node.cubiconNodeId)
     : undefined;
 
-  const defaultDuration = 1000;
-
   if (currentNodeSignature.type === "Animation") {
-    const playAnimation = (e: FormEvent<HTMLFormElement>) => {
+    const playAnimation = (e: FormEvent) => {
       e.preventDefault();
-
-      updateAnimationNode(
-        currentNodeSignature.groupNodeId,
-        currentNodeSignature.animationQueueNodeId,
-        node.id,
-        {
-          cubiconNodeId: node.cubiconNodeId,
-          animation: {
-            ...node.animation,
-            duration: durationRef.current
-              ? parseInt(durationRef.current.value)
-              : node.animation?.duration ?? defaultDuration,
-          },
-        }
-      );
     };
 
     const onCubiconNodeDrop = ({
@@ -56,10 +39,22 @@ export const CreateShapePad = ({ node }: Props) => {
           cubiconNodeId: droppedCubiconNode.id,
           animation: new CreateShape({
             cubicon: droppedCubiconNode.cubicon,
-            duration: durationRef.current
-              ? parseInt(durationRef.current.value)
-              : defaultDuration,
+            duration: node.animation?.duration ?? defaultDuration,
           }),
+        }
+      );
+    };
+
+    const updateDuration = (e: ChangeEvent<HTMLInputElement>) => {
+      updateAnimationNode(
+        currentNodeSignature.groupNodeId,
+        currentNodeSignature.animationQueueNodeId,
+        node.id,
+        {
+          animation: {
+            ...node.animation,
+            duration: parseInt(e.target.value),
+          },
         }
       );
     };
@@ -75,8 +70,8 @@ export const CreateShapePad = ({ node }: Props) => {
 
         <PadOptionLayout label="duration">
           <InputField
-            defaultValue={node.animation?.duration ?? defaultDuration}
-            ref={durationRef}
+            value={node.animation?.duration ?? defaultDuration}
+            onChange={updateDuration}
             disabled={node.animation === undefined}
           />
         </PadOptionLayout>

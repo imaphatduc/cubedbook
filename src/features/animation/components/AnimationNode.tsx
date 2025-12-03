@@ -3,6 +3,7 @@ import { type IGroupNode } from "@/features/group";
 import { AnimationQueueNode } from "./AnimationQueueNode";
 import type { MouseEvent } from "react";
 import { TimelineSegments } from "./TimelineSegments";
+import { getKeyframeFromPixels } from "../lib";
 
 interface Props {
   unitPixels: number;
@@ -26,7 +27,7 @@ export const AnimationNode = ({
     right: unitsCount * unitPixels,
   };
 
-  const getNearestUnit = (e: MouseEvent<HTMLDivElement>) => {
+  const getNearestUnitInPixels = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
 
     const x = e.clientX - rect.left;
@@ -38,15 +39,17 @@ export const AnimationNode = ({
     const nearestUnitInPixels =
       x - lowerBound < upperBound - x ? lowerBound : upperBound;
 
-    const nearestUnit = nearestUnitInPixels / unitPixels;
-
-    return nearestUnit;
+    return nearestUnitInPixels;
   };
 
   const addKeyframe = (e: MouseEvent<HTMLDivElement>) => {
-    const selectedUnit = getNearestUnit(e);
+    const selectedUnitInPixels = getNearestUnitInPixels(e);
 
-    const selectedKeyframe = selectedUnit * unitValue * 1000;
+    const selectedKeyframe = getKeyframeFromPixels(
+      selectedUnitInPixels,
+      unitPixels,
+      unitValue
+    );
 
     addAnimationQueue(groupNode.id, selectedKeyframe);
   };

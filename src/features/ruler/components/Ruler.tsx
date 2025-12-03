@@ -9,7 +9,7 @@ export const Ruler = ({ unitPixels, unitsCount, unitsInASegment }: Props) => {
 
   return (
     <div
-      className="divide-x divide-[#444] border-b border-[#444] w-fit"
+      className="divide-x divide-[#444] border-b border-[#444] bg-[#1b1b1b] w-fit sticky top-0"
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(${Math.floor(segmentsCount)}, ${

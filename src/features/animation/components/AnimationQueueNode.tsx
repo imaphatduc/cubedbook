@@ -5,6 +5,8 @@ import { useMenuState } from "@szhsin/react-menu";
 import { type IAnimationQueueNode } from "@/features/animation";
 import { AnimationKeyframe } from "./AnimationKeyframe";
 import { AnimationGeneratorMenu } from "./AnimationGeneratorMenu";
+import { getKeyframeFromPixels } from "../lib";
+import { useCubed } from "@/contexts";
 
 interface Props {
   groupNodeId: string;
@@ -21,14 +23,19 @@ export const AnimationQueueNode = ({
   bounds,
   animationQueueNode,
 }: Props) => {
+  const { updateAnimationQueueNode, updateAnimationNode } = useCubed();
+
   const [menuProps, toggleMenu] = useMenuState();
 
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
 
   const startTime = animationQueueNode.startTime;
 
-  const keyframes = animationQueueNode.animationNodes.map(
-    (animationNode) => startTime + (animationNode.animation?.duration ?? 1000)
+  const animationNodesInfo = animationQueueNode.animationNodes.map(
+    (animationNode) => ({
+      node: animationNode,
+      keyframe: startTime + (animationNode.animation?.duration ?? 1000),
+    })
   );
 
   const nodeRef = useRef<HTMLDivElement>(null);
@@ -51,22 +58,40 @@ export const AnimationQueueNode = ({
         unitPixels={unitPixels}
         openMenu={openMenu}
         onDrag={(_, { x }) => {
-          // setStartTime(x / unitPixels);
-          // TODO: set `end` properties of `animationQueue` animations to `startTime`
+          const keyframe = getKeyframeFromPixels(x, unitPixels, unitValue);
+
+          updateAnimationQueueNode(groupNodeId, animationQueueNode.id, {
+            startTime: keyframe,
+          });
         }}
       />
 
-      {keyframes.map((keyframe, i) => (
+      {animationNodesInfo.map((info, i) => (
         <AnimationKeyframe
           type="animation"
           key={i}
           nodeRef={nodeRef}
           bounds={{ ...bounds, left: startPixel }}
           position={{
-            x: (keyframe / 1000 / unitValue) * unitPixels,
+            x: (info.keyframe / 1000 / unitValue) * unitPixels,
             y: 0,
           }}
           unitPixels={unitPixels}
+          onDrag={(_, { x }) => {
+            const keyframe = getKeyframeFromPixels(x, unitPixels, unitValue);
+
+            updateAnimationNode(
+              groupNodeId,
+              animationQueueNode.id,
+              info.node.id,
+              {
+                animation: {
+                  ...info.node.animation,
+                  duration: keyframe - startTime,
+                },
+              }
+            );
+          }}
         />
       ))}
 
