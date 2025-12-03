@@ -1112,10 +1112,10 @@ csstype@^3.2.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.2.3.tgz#ec48c0f3e993e50648c86da559e2610995cf989a"
   integrity sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
 
-cubecubed@^1.16.0:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/cubecubed/-/cubecubed-1.16.0.tgz#bfa09d27bd393a4ff8bc7c906256c9fcf0978e94"
-  integrity sha512-0nCfMVyhEq60ybgo2GKjK0xin//SzrmUXSsJ1BssxYmD3sz8mP0qGJTJyZwkU5dwA3adMma7jaPJDYTaS7UElw==
+cubecubed@^1.17.0:
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/cubecubed/-/cubecubed-1.17.0.tgz#31ab710e0f7f5841914236c69d39e83e9a50b1f2"
+  integrity sha512-gyuvXUympXsHHvuLEe29F8QiflllZuRcblDBbKJ0B/pkgN3ftpEH+y5BqFrB6lOAX21+cAKx0SFrjbrijjyCVw==
   dependencies:
     d3 "^7.4.1"
     inquirer "^8.2.2"

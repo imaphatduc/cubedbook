@@ -33,6 +33,7 @@ import {
 interface ContextValue {
   // SCENE
   scene: Scene;
+  setScene: (d: Scene) => void;
   currentNodeSignature: NodeSignature;
   setCurrentNodeSignature: (d: NodeSignature) => void;
 
@@ -93,7 +94,7 @@ const CubedContext = createContext<ContextValue>({} as ContextValue);
 export const useCubed = () => useContext(CubedContext);
 
 export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
-  const scene = new Scene("simpleScene");
+  const [scene, setScene] = useState(new Scene("simpleScene"));
 
   const [groupNodes, setGroupNodes] = useState<IGroupNode[]>([]);
 
@@ -108,6 +109,7 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
       value={{
         // SCENE
         scene,
+        setScene,
         currentNodeSignature,
         setCurrentNodeSignature,
 
