@@ -7,7 +7,7 @@ export const getAnimationNodeById = (
   const animationNode = groupNodes
     .map((groupNode) =>
       groupNode.animationQueueNodes.map(
-        (animationQueueNode) => animationQueueNode.queues
+        (animationQueueNode) => animationQueueNode.animationNodes
       )
     )
     .flat(2)

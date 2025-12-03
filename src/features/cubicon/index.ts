@@ -14,7 +14,7 @@ import { type ICubiconNode } from "./types";
 import {
   getCubiconNodeById,
   addCubiconNode,
-  renameCubiconNode,
+  updateCubiconNode,
   removeCubiconNode,
 } from "./lib";
 
@@ -30,6 +30,6 @@ export {
   type ICubiconNode,
   getCubiconNodeById,
   addCubiconNode,
-  renameCubiconNode,
+  updateCubiconNode,
   removeCubiconNode,
 };

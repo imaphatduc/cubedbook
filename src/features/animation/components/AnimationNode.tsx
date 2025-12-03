@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import { useCubed } from "@/contexts";
 import { type IGroupNode } from "@/features/group";
 import { AnimationQueueNode } from "./AnimationQueueNode";
@@ -49,10 +48,7 @@ export const AnimationNode = ({
 
     const selectedKeyframe = selectedUnit * unitValue * 1000;
 
-    addAnimationQueue(groupNode.id, {
-      start: selectedKeyframe,
-      animations: [],
-    });
+    addAnimationQueue(groupNode.id, selectedKeyframe);
   };
 
   return (
@@ -62,7 +58,8 @@ export const AnimationNode = ({
     >
       {groupNode.animationQueueNodes.map((animationQueueNode) => (
         <AnimationQueueNode
-          key={uuid()}
+          key={animationQueueNode.id}
+          groupNodeId={groupNode.id}
           unitPixels={unitPixels}
           unitValue={unitValue}
           bounds={bounds}

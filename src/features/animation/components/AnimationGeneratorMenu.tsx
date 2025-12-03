@@ -1,8 +1,10 @@
-import { useCubed } from "@/contexts";
 import { CtxMenu, CtxMenuItem } from "@/features/menu";
 import type { MenuState } from "@szhsin/react-menu";
+import { CreateShapeMenuItem } from "./CreateShapeMenuItem";
 
 interface Props {
+  groupNodeId: string;
+  animationQueueNodeId: string;
   menuProps: {
     state?: MenuState;
     endTransition: () => void;
@@ -12,27 +14,21 @@ interface Props {
 }
 
 export const AnimationGeneratorMenu = ({
+  groupNodeId,
+  animationQueueNodeId,
   menuProps,
   toggleMenu,
   anchorPoint,
 }: Props) => {
-  const { setCurrentNodeSignature } = useCubed();
-
   return (
     <CtxMenu
       menuProps={menuProps}
       toggleMenu={toggleMenu}
       anchorPoint={anchorPoint}
     >
-      <CtxMenuItem
-        label="Create Shape"
-        onClick={() =>
-          setCurrentNodeSignature({
-            id: "",
-            label: "CreateShape",
-            type: "Animation",
-          })
-        }
+      <CreateShapeMenuItem
+        groupNodeId={groupNodeId}
+        animationQueueNodeId={animationQueueNodeId}
       />
 
       <CtxMenuItem label="Create Vector Shape" />

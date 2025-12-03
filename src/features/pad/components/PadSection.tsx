@@ -3,22 +3,31 @@ import { SectionHeader } from "@/features/section";
 import { getAnimationPad, getCubiconPad } from "../lib";
 
 export const PadSection = () => {
-  const { currentNodeSignature, getCubiconNodeById } = useCubed();
+  const { currentNodeSignature, getCubiconNodeById, getAnimationNodeById } =
+    useCubed();
 
-  const currentCubicon = getCubiconNodeById(currentNodeSignature.id);
+  if (currentNodeSignature.type === "Cubicon") {
+    const currentCubiconNode = getCubiconNodeById(currentNodeSignature.id);
 
-  return (
-    <div>
-      <SectionHeader header="Editor" />
+    return (
+      <div>
+        <SectionHeader header="Editor" />
 
-      {currentNodeSignature.id &&
-        currentNodeSignature.type === "Cubicon" &&
-        currentCubicon &&
-        getCubiconPad(currentCubicon)}
+        {currentCubiconNode && getCubiconPad(currentCubiconNode)}
+      </div>
+    );
+  }
 
-      {currentNodeSignature.label &&
-        currentNodeSignature.type === "Animation" &&
-        getAnimationPad(currentNodeSignature.label)}
-    </div>
-  );
+  if (currentNodeSignature.type === "Animation") {
+    const currentAnimationNode = getAnimationNodeById(currentNodeSignature.id);
+
+    return (
+      <div>
+        <SectionHeader header="Editor" />
+
+        {currentAnimationNode &&
+          getAnimationPad(currentNodeSignature.label, currentAnimationNode)}
+      </div>
+    );
+  }
 };

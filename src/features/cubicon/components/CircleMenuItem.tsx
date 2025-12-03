@@ -36,8 +36,9 @@ export const CircleMenuItem = ({ groupNode }: Props) => {
     );
 
     setCurrentNodeSignature({
-      id: cubiconNode.id,
       type: "Cubicon",
+      id: cubiconNode.id,
+      groupNodeId: groupNode.id,
     });
   };
 

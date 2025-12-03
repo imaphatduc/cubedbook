@@ -1,5 +1,11 @@
-import { getAnimationNodeById } from './getAnimationNodeById';
-import { makeAnimationNode } from './makeAnimationNode';
-import { addAnimationQueue } from './addAnimationQueue';
+import { addAnimationQueue } from "./addAnimationQueue";
+import { getAnimationNodeById } from "./getAnimationNodeById";
+import { addAnimationNodeToQueue } from "./addAnimationNodeToQueue";
+import { updateAnimationNode } from "./updateAnimationNode";
 
-export { getAnimationNodeById, makeAnimationNode, addAnimationQueue };
+export {
+  addAnimationQueue,
+  getAnimationNodeById,
+  addAnimationNodeToQueue,
+  updateAnimationNode,
+};

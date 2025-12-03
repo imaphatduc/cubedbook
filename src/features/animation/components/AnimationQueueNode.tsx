@@ -7,6 +7,7 @@ import { AnimationKeyframe } from "./AnimationKeyframe";
 import { AnimationGeneratorMenu } from "./AnimationGeneratorMenu";
 
 interface Props {
+  groupNodeId: string;
   unitPixels: number;
   unitValue: number;
   bounds: DraggableBounds;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const AnimationQueueNode = ({
+  groupNodeId,
   unitPixels,
   unitValue,
   bounds,
@@ -23,10 +25,10 @@ export const AnimationQueueNode = ({
 
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
 
-  const [startTime, setStartTime] = useState(animationQueueNode.start);
+  const startTime = animationQueueNode.startTime;
 
-  const keyframes = animationQueueNode.animations.map(
-    (animationNode) => startTime + animationNode.animation.duration
+  const keyframes = animationQueueNode.animationNodes.map(
+    (animationNode) => startTime + (animationNode.animation?.duration ?? 1000)
   );
 
   const nodeRef = useRef<HTMLDivElement>(null);
@@ -45,12 +47,11 @@ export const AnimationQueueNode = ({
         type="queue"
         nodeRef={nodeRef}
         bounds={bounds}
-        defaultPosition={{ x: startPixel, y: 0 }}
+        position={{ x: startPixel, y: 0 }}
         unitPixels={unitPixels}
         openMenu={openMenu}
         onDrag={(_, { x }) => {
-          setStartTime(x / unitPixels);
-
+          // setStartTime(x / unitPixels);
           // TODO: set `end` properties of `animationQueue` animations to `startTime`
         }}
       />
@@ -61,12 +62,17 @@ export const AnimationQueueNode = ({
           key={i}
           nodeRef={nodeRef}
           bounds={{ ...bounds, left: startPixel }}
-          defaultPosition={{ x: (keyframe / unitValue) * unitPixels, y: 0 }}
+          position={{
+            x: (keyframe / 1000 / unitValue) * unitPixels,
+            y: 0,
+          }}
           unitPixels={unitPixels}
         />
       ))}
 
       <AnimationGeneratorMenu
+        groupNodeId={groupNodeId}
+        animationQueueNodeId={animationQueueNode.id}
         menuProps={menuProps}
         toggleMenu={toggleMenu}
         anchorPoint={anchorPoint}

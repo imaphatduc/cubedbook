@@ -1,10 +1,9 @@
-import { Animation } from "cubecubed";
+import { v4 as uuid } from "uuid";
 import { type IGroupNode } from "@/features/group";
-import { type IAnimationQueueNode } from "../types";
 
-export const addAnimationQueue = <IAnimation extends Animation>(
+export const addAnimationQueue = (
   groupNodeId: string,
-  animationQueueNode: IAnimationQueueNode<IAnimation>,
+  startTime: number,
   groupNodes: IGroupNode[],
   setGroupNodes: (d: IGroupNode[]) => void
 ) => {
@@ -15,7 +14,11 @@ export const addAnimationQueue = <IAnimation extends Animation>(
           ...groupNode,
           animationQueueNodes: [
             ...groupNode.animationQueueNodes,
-            animationQueueNode,
+            {
+              id: uuid(),
+              startTime,
+              animationNodes: [],
+            },
           ],
         };
       }

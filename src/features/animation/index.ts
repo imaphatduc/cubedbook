@@ -1,9 +1,10 @@
 import { AnimationSection, CreateShapePad } from "./components";
 import type { IAnimationQueueNode, IAnimationNode } from "./types";
 import {
-  getAnimationNodeById,
-  makeAnimationNode,
   addAnimationQueue,
+  getAnimationNodeById,
+  addAnimationNodeToQueue,
+  updateAnimationNode,
 } from "./lib";
 
 export {
@@ -11,7 +12,8 @@ export {
   CreateShapePad,
   type IAnimationQueueNode,
   type IAnimationNode,
-  getAnimationNodeById,
-  makeAnimationNode,
   addAnimationQueue,
+  getAnimationNodeById,
+  addAnimationNodeToQueue,
+  updateAnimationNode,
 };

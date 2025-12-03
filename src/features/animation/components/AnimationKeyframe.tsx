@@ -9,7 +9,7 @@ interface Props {
   type: "queue" | "animation";
   nodeRef: RefObject<HTMLDivElement | null>;
   bounds: DraggableBounds;
-  defaultPosition: { x: number; y: number };
+  position: { x: number; y: number };
   unitPixels: number;
   openMenu?: (e: MouseEvent<SVGSVGElement>) => void;
   onDrag?: DraggableEventHandler;
@@ -19,7 +19,7 @@ export const AnimationKeyframe = ({
   type,
   nodeRef,
   bounds,
-  defaultPosition,
+  position,
   unitPixels,
   openMenu,
   onDrag,
@@ -30,7 +30,7 @@ export const AnimationKeyframe = ({
     <Draggable
       nodeRef={nodeRef}
       axis="x"
-      defaultPosition={defaultPosition}
+      position={position}
       grid={[unitPixels, 0]}
       bounds={bounds}
       onDrag={onDrag}

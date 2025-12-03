@@ -18,7 +18,7 @@ export const CubiconRenamingModal = ({
   cubiconNodeId,
   cubiconNodeName,
 }: Props) => {
-  const { renameCubiconNode } = useCubed();
+  const { updateCubiconNode } = useCubed();
 
   const nameRef = useRef<HTMLInputElement>(null);
 
@@ -26,7 +26,9 @@ export const CubiconRenamingModal = ({
     if (nameRef.current) {
       setIsRenaming(false);
 
-      renameCubiconNode(groupNodeId, cubiconNodeId, nameRef.current.value);
+      updateCubiconNode(groupNodeId, cubiconNodeId, {
+        name: nameRef.current.value,
+      });
     }
   };
 

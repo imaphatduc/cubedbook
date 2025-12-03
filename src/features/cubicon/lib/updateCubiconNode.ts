@@ -1,9 +1,10 @@
 import { type IGroupNode } from "@/features/group";
+import type { ICubiconNode } from "../types";
 
-export const renameCubiconNode = (
+export const updateCubiconNode = (
   groupNodeId: string,
   cubiconNodeId: string,
-  newName: string,
+  data: Partial<ICubiconNode<any>>,
   groupNodes: IGroupNode[],
   setGroupNodes: (d: IGroupNode[]) => void
 ) => {
@@ -14,10 +15,14 @@ export const renameCubiconNode = (
           ...groupNode,
           cubiconNodes: groupNode.cubiconNodes.map((cubiconNode) => {
             if (cubiconNode.id === cubiconNodeId) {
-              return {
+              const updatedCubiconNode = {
                 ...cubiconNode,
-                name: newName,
+                ...Object.fromEntries(
+                  Object.entries(data).filter(([_, v]) => v !== undefined)
+                ),
               };
+
+              return updatedCubiconNode;
             }
 
             return cubiconNode;

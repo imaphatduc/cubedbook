@@ -16,16 +16,16 @@ import {
   type ICubiconNode,
   getCubiconNodeById,
   addCubiconNode,
-  renameCubiconNode,
+  updateCubiconNode,
   removeCubiconNode,
 } from "@/features/cubicon";
 
 import {
   type IAnimationNode,
-  type IAnimationQueueNode,
   getAnimationNodeById,
-  makeAnimationNode,
+  addAnimationNodeToQueue,
   addAnimationQueue,
+  updateAnimationNode,
 } from "@/features/animation";
 
 interface ContextValue {
@@ -50,28 +50,32 @@ interface ContextValue {
     cubicon: ICubicon
   ) => ICubiconNode<ICubicon>;
 
-  renameCubiconNode: (
+  updateCubiconNode: (
     groupNodeId: string,
     cubiconNodeId: string,
-    newName: string
+    data: Partial<ICubiconNode<any>>
   ) => void;
 
   removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) => void;
 
   // ANIMATION
+  addAnimationQueue: (groupNodeId: string, startTime: number) => void;
+
   getAnimationNodeById: (
     animationNodeId: string
   ) => IAnimationNode<Animation> | undefined;
 
-  makeAnimationNode: <IAnimation extends Animation>(
-    label: string,
-    cubiconNodeId: string,
-    animation: IAnimation
+  addAnimationNodeToQueue: <IAnimation extends Animation>(
+    groupNodeId: string,
+    animationQueueId: string,
+    label: string
   ) => IAnimationNode<IAnimation>;
 
-  addAnimationQueue: <IAnimation extends Animation>(
+  updateAnimationNode: (
     groupNodeId: string,
-    animationQueueNode: IAnimationQueueNode<IAnimation>
+    animationQueueId: string,
+    animationNodeId: string,
+    data: Partial<IAnimationNode<any>>
   ) => void;
 }
 
@@ -87,7 +91,6 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
   const [currentNodeSignature, setCurrentNodeSignature] =
     useState<NodeSignature>({
       id: "",
-      label: "",
       type: "",
     });
 
@@ -100,18 +103,13 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
 
         groupNodes,
 
-        addGroupNode: (name: string, type: "2d" | "3d") =>
+        addGroupNode: (name, type) =>
           addGroupNode(name, type, scene, groupNodes, setGroupNodes),
 
-        getCubiconNodeById: (cubiconNodeId: string) =>
+        getCubiconNodeById: (cubiconNodeId) =>
           getCubiconNodeById(cubiconNodeId, groupNodes),
 
-        addCubiconNode: <ICubicon extends Cubicon>(
-          groupNodeId: string,
-          name: string,
-          label: string,
-          cubicon: ICubicon
-        ) =>
+        addCubiconNode: (groupNodeId, name, label, cubicon) =>
           addCubiconNode(
             groupNodeId,
             name,
@@ -121,20 +119,16 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
             setGroupNodes
           ),
 
-        renameCubiconNode: (
-          groupNodeId: string,
-          cubiconNodeId: string,
-          newName: string
-        ) =>
-          renameCubiconNode(
+        updateCubiconNode: (groupNodeId, cubiconNodeId, data) =>
+          updateCubiconNode(
             groupNodeId,
             cubiconNodeId,
-            newName,
+            data,
             groupNodes,
             setGroupNodes
           ),
 
-        removeCubiconNode: (groupNodeId: string, cubiconNodeId: string) =>
+        removeCubiconNode: (groupNodeId, cubiconNodeId) =>
           removeCubiconNode(
             groupNodeId,
             cubiconNodeId,
@@ -142,22 +136,32 @@ export const CubedProvider: FC<PropsWithChildren> = ({ children }) => {
             setGroupNodes
           ),
 
-        makeAnimationNode: <IAnimation extends Animation>(
-          label: string,
-          cubiconNodeId: string,
-          animation: IAnimation
-        ) => makeAnimationNode(label, cubiconNodeId, animation),
+        addAnimationQueue: (groupNodeId, startTime) =>
+          addAnimationQueue(groupNodeId, startTime, groupNodes, setGroupNodes),
 
-        getAnimationNodeById: (animationNodeId: string) =>
+        getAnimationNodeById: (animationNodeId) =>
           getAnimationNodeById(animationNodeId, groupNodes),
 
-        addAnimationQueue: <IAnimation extends Animation>(
-          groupNodeId: string,
-          animationQueueNode: IAnimationQueueNode<IAnimation>
-        ) =>
-          addAnimationQueue(
+        addAnimationNodeToQueue: (groupNodeId, animationQueueId, label) =>
+          addAnimationNodeToQueue(
             groupNodeId,
-            animationQueueNode,
+            animationQueueId,
+            label,
+            groupNodes,
+            setGroupNodes
+          ),
+
+        updateAnimationNode: (
+          groupNodeId,
+          animationQueueId,
+          animationNodeId,
+          data
+        ) =>
+          updateAnimationNode(
+            groupNodeId,
+            animationQueueId,
+            animationNodeId,
+            data,
             groupNodes,
             setGroupNodes
           ),

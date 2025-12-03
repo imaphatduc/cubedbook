@@ -49,8 +49,9 @@ export const CubiconNode = ({ groupNode, cubiconNode }: Props) => {
         }`}
         onClick={() => {
           setCurrentNodeSignature({
-            id: cubiconNode.id,
             type: "Cubicon",
+            id: cubiconNode.id,
+            groupNodeId: groupNode.id,
           });
         }}
       >
