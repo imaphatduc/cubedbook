@@ -5,8 +5,7 @@ import { useMenuState } from "@szhsin/react-menu";
 import { type IAnimationQueueNode } from "@/features/animation";
 import { AnimationKeyframe } from "./AnimationKeyframe";
 import { AnimationGeneratorMenu } from "./AnimationGeneratorMenu";
-import { getKeyframeFromPixels } from "../lib";
-import { useCubed } from "@/contexts";
+import { AnimationQueueKeyframe } from "./AnimationQueueKeyframe";
 
 interface Props {
   groupNodeId: string;
@@ -23,8 +22,6 @@ export const AnimationQueueNode = ({
   bounds,
   animationQueueNode,
 }: Props) => {
-  const { updateAnimationQueueNode, updateAnimationNode } = useCubed();
-
   const [menuProps, toggleMenu] = useMenuState();
 
   const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -50,26 +47,24 @@ export const AnimationQueueNode = ({
 
   return (
     <div className="flex flex-col gap-2 justify-center py-2">
-      <AnimationKeyframe
-        type="queue"
+      <AnimationQueueKeyframe
+        groupNodeId={groupNodeId}
+        animationQueueNodeId={animationQueueNode.id}
         nodeRef={nodeRef}
         bounds={bounds}
         position={{ x: startPixel, y: 0 }}
         unitPixels={unitPixels}
+        unitValue={unitValue}
         openMenu={openMenu}
-        onDrag={(_, { x }) => {
-          const keyframe = getKeyframeFromPixels(x, unitPixels, unitValue);
-
-          updateAnimationQueueNode(groupNodeId, animationQueueNode.id, {
-            startTime: keyframe,
-          });
-        }}
       />
 
       {animationNodesInfo.map((info, i) => (
         <AnimationKeyframe
-          type="animation"
           key={i}
+          groupNodeId={groupNodeId}
+          animationQueueNodeId={animationQueueNode.id}
+          animationNode={info.node}
+          startTime={startTime}
           nodeRef={nodeRef}
           bounds={{ ...bounds, left: startPixel }}
           position={{
@@ -77,21 +72,7 @@ export const AnimationQueueNode = ({
             y: 0,
           }}
           unitPixels={unitPixels}
-          onDrag={(_, { x }) => {
-            const keyframe = getKeyframeFromPixels(x, unitPixels, unitValue);
-
-            updateAnimationNode(
-              groupNodeId,
-              animationQueueNode.id,
-              info.node.id,
-              {
-                animation: {
-                  ...info.node.animation,
-                  duration: keyframe - startTime,
-                },
-              }
-            );
-          }}
+          unitValue={unitValue}
         />
       ))}
 

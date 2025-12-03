@@ -1,59 +1,42 @@
+import { useCubed } from "@/contexts";
 import { Diamond } from "phosphor-react";
-import type { RefObject } from "react";
+import type { MouseEvent, RefObject } from "react";
 import Draggable, {
   type DraggableBounds,
   type DraggableEventHandler,
 } from "react-draggable";
-import type { IAnimationNode } from "../types";
-import { useCubed } from "@/contexts";
 import { getKeyframeFromPixels } from "../lib";
 
 interface Props {
   groupNodeId: string;
   animationQueueNodeId: string;
-  animationNode: IAnimationNode<any>;
-  startTime: number;
   nodeRef: RefObject<HTMLDivElement | null>;
   bounds: DraggableBounds;
   position: { x: number; y: number };
   unitPixels: number;
   unitValue: number;
+  openMenu: (e: MouseEvent<SVGSVGElement>) => void;
 }
 
-export const AnimationKeyframe = ({
+export const AnimationQueueKeyframe = ({
   groupNodeId,
   animationQueueNodeId,
-  animationNode,
-  startTime,
   nodeRef,
   bounds,
   position,
   unitPixels,
   unitValue,
+  openMenu,
 }: Props) => {
-  const { currentNodeSignature, setCurrentNodeSignature, updateAnimationNode } =
-    useCubed();
+  const { updateAnimationQueueNode } = useCubed();
+
+  const diamondWidth = 16;
 
   const onDrag: DraggableEventHandler = (_, { x }) => {
     const keyframe = getKeyframeFromPixels(x, unitPixels, unitValue);
 
-    updateAnimationNode(groupNodeId, animationQueueNodeId, animationNode.id, {
-      animation: {
-        ...animationNode.animation,
-        duration: keyframe - startTime,
-      },
-    });
-  };
-
-  const diamondWidth = 16;
-
-  const focus = () => {
-    setCurrentNodeSignature({
-      type: "Animation",
-      id: animationNode.id,
-      label: animationNode.label,
-      groupNodeId,
-      animationQueueNodeId,
+    updateAnimationQueueNode(groupNodeId, animationQueueNodeId, {
+      startTime: keyframe,
     });
   };
 
@@ -70,12 +53,11 @@ export const AnimationKeyframe = ({
         <Diamond
           size={diamondWidth}
           weight="fill"
-          className={"text-cubedlightblue"}
+          className={"text-cubedpink"}
           style={{
             marginLeft: `-${diamondWidth / 2}px`,
-            opacity: currentNodeSignature.id === animationNode.id ? 0.5 : 1,
           }}
-          onClick={focus}
+          onContextMenu={openMenu}
         />
       </div>
     </Draggable>
