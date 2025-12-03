@@ -1,4 +1,5 @@
 import { SceneSection } from "@/features/scene";
+import { Cubecubed } from "../Cubecubed";
 
 export const TopLeft = () => {
   return (
@@ -7,10 +8,7 @@ export const TopLeft = () => {
         <SceneSection />
       </div>
 
-      <div
-        id="cubecubed"
-        className="sticky top-0 right-0 bottom-0 left-0 bg-black"
-      ></div>
+      <Cubecubed />
     </div>
   );
 };
